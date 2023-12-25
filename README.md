@@ -1,11 +1,9 @@
 <h1>
 <img src="https://github.com/jimmybisenius/trade-rust/blob/master/public/rust-icon.png?raw=true" width="25" style="margin-right:6px"/>
 Rust trade evaluator
-<span style="font-weight:400;font-size: 16px; opacity: .6; margin-left: 8px;">Version 1.1.0</span>
+<img src="https://img.shields.io/badge/Version-1.1.0-blue"/>
 </h1>
-An unofficial, but helpful trade evaluation tool for Rust players.<br/><br/>
-
-Built for [Lone Wolf Solo Server](https://lonewolfrust.gg/) by PlasteredDragon, with recent edits by Burger + community.
+An unofficial, but helpful trade evaluation tool for Rust players.
 
 ## Making changes
 
@@ -32,9 +30,10 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 Once you've made your desired changes, commit them to a fork and submit a pull-request, ensuring you tag someone for review.
 
 ## Contributors
-Originally built by PlasteredDragon, interface and Github by Burger.
+Built by PlasteredDragon, interface and Github by Burger. Special thanks to Lone Wolf Rust.
 
 <p float="left">
     <img alt="PlasteredDragon, Founding contributor" src="https://github.com/jimmybisenius/trade-rust/blob/master/public/pd-avatar.png?raw=true" width="60"/>
     <img alt="Burger, Founding maintainer" src="https://github.com/jimmybisenius/trade-rust/blob/master/public/burger-avatar.png?raw=true" width="60" style="margin-left:4px"/>
+    <img alt="Lone Wolf Rust Servers" src="https://github.com/jimmybisenius/trade-rust/blob/master/public/lone-wolf-avatar.png?raw=true" width="60" style="margin-left:4px"/>
 </p>
