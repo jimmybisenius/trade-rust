@@ -30,7 +30,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 Once you've made your desired changes, commit them to a fork and submit a pull-request, ensuring you tag someone for review.
 
 ## Contributors
-Built by PlasteredDragon, interface and Github by Burger. Special thanks to Lone Wolf Rust.
+Built by PlasteredDragon, interface and Github by [Burger](https://github.com/jimmybisenius). Special thanks to [Lone Wolf Rust](https://lonewolfrust.gg/).
 
 <p float="left">
     <img alt="PlasteredDragon, Founding contributor" src="https://github.com/jimmybisenius/trade-rust/blob/master/public/pd-avatar.png?raw=true" width="60"/>
