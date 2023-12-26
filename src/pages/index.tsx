@@ -387,7 +387,7 @@ export default function Home() {
                 window.localStorage.setItem('senderName', pendingName ?? '')
                 setSenderName(pendingName ?? undefined)
             }}>{senderName ?? 'Yourself'}</TradeHeader>
-            <div className="grid grid-cols-6 gap-2 w-full mt-2 px-2">
+            <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 w-full px-2 mt-2">
               {senderOffer.map((item, i) => <TradeItem
                 item={item.name}
                 onSwitchParties={() => switchOfferingParties(item.name, 'sender')}
