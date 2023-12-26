@@ -175,8 +175,8 @@ export default function Home() {
     similarityScores.sort((a, b) => a.score - b.score);
     const levenshteinMatches = similarityScores.map(item => item.enumValue);
   
-    // Combine substring matches and Levenshtein distance matches
-    return [...new Set([...substringMatches, ...levenshteinMatches])];
+    // Combine substring matches and Levenshtein distance matches and convert Set to Array
+    return Array.from(new Set([...substringMatches, ...levenshteinMatches]));
   }
 
   // Runs every time the input search query is updated
