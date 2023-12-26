@@ -1,13 +1,21 @@
+import { values } from '@/components'
+import { Item } from '@/types'
+
 const TradeItem = ({ item, quantity, onSwitchParties, onEdit, onDelete }: {
     item?: string,
     quantity?: number,
     onEdit?: () => void,
     onDelete?: () => void,
     onSwitchParties?: () => void
-}) => (
+}) => {
+    const itemDetails = values.find((details: Item) => {
+        return details.name === item
+    })
+
+    return (
     <div className={`bg-glass ${item ? 'cursor-pointer' : 'cursor-not-allowed'} item flex flex-col p-2 items-end justify-end bg-glass aspect-square relative`}>{item ? <>
-        <p className="w-full text-center capitalize font-bold">{item}</p>
-        <p className="text-right opacity-60 font-medium">x {quantity?.toLocaleString()}</p>
+        {itemDetails.imageUrl ?<img style={{height: 50, marginBottom:-10}} className='mx-auto' src={itemDetails.imageUrl} alt={item}/> : <p className="w-full text-center capitalize font-bold">{item}</p>}
+        <p className="text-right opacity-60 font-medium" style={{textShadow: '0 2px 5px rgba(0,0,0,.5)'}}>x {quantity?.toLocaleString()}</p>
     </> : <></>}
         {item ?<div className="item-controls flex flex-row items-center justify-between w-full p-1 top-0 left-0 absolute">
             <div onClick={onSwitchParties ? () => onSwitchParties() : undefined} className="p-1 rounded hover:bg-glass-brighter">
@@ -28,5 +36,6 @@ const TradeItem = ({ item, quantity, onSwitchParties, onEdit, onDelete }: {
         </div> : <></>}
     </div>
 )
+}
 
 export default TradeItem

@@ -29,10 +29,11 @@
     category: ItemCategory
     name: ItemName
     noQty: boolean
-    depPerDay: number
+    depreciationPerDay: number
     scrapPer: number
     quantityToResearch?: number
     justification?: string
+    imageUrl?: string
   }
 
   type ItemOffering = {

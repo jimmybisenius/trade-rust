@@ -143,7 +143,7 @@ export default function Home() {
       // TODO: Add research trades. If quantity == 1 and the item has research value, use that if greater than base value
       // Apply depreciation
       // TODO: Allow custom wipe dates/days since last wipe
-      scrapValue -= daysSinceWipe * item.depPerDay
+      scrapValue -= daysSinceWipe * item.depreciationPerDay
     }
   
     // Return value in scrap
@@ -311,6 +311,11 @@ export default function Home() {
                       setItemSearchQuery('')
                       setRecommendations([])
                       throw Error('Item already exists in list, cannot add twice.')
+                    }
+                    if(recipientOffer.length > 11) {
+                      setItemSearchQuery('')
+                      setRecommendations([])
+                      throw Error('Only 12 items can be transacted per trade.')
                     }
                     // Prompt for quantity
                     let quantity: string | undefined | null = prompt('How much?')
