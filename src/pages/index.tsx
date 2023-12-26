@@ -218,6 +218,7 @@ export default function Home() {
     }
   }
 
+  // Used to delete an item from a party's offer.
   function deleteOffering(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
     // Find the correct offerings to edit
     let targetOfferings = originatingParty === 'sender' ? [...senderOffer] : [...recipientOffer]
@@ -239,6 +240,7 @@ export default function Home() {
     }
   }
 
+  // Used to switch an item from one party (ex: sender) to another (ex: recipient)
   function switchOfferingParties(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
      // Find the correct offerings to edit
      let targetOfferings = originatingParty === 'sender' ? [...senderOffer] : [...recipientOffer]
@@ -249,6 +251,11 @@ export default function Home() {
      })
      // If target can't be found, throw error and exit
      if(!target) throw Error('Failed to find target')
+     // Ensure the non-originating party does not already have the target
+    const existingItem = otherPartyOfferings.find((item: ItemOffering) => {
+      return item.name === itemName
+    })
+    if(existingItem) throw Error('Cannot switch item parties, other party is already offering this item.')
      // Find index of target
      const targetIndex = targetOfferings.indexOf(target)
      // Remove target from offerings
@@ -265,6 +272,7 @@ export default function Home() {
      }
   }
 
+  // If page is loading, return loading message
   if(daysSinceWipe === undefined) return <p className="p-12 text-center w-full text-lg opacity-60 font-medium">Loading...</p>
 
   return (
