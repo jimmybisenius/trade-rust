@@ -1,9 +1,40 @@
-import { TradeHeader, TradeItem } from "@/components"
+import { TradeHeader, TradeItem, values } from "@/components"
 import { use, useEffect, useState } from "react"
 
 import { Item, ItemCategory, ItemName, ItemOffering } from "@/types"
 
 const { version } = require('../../package.json')
+
+function findScrapValue(item: ItemName): number {
+    const target: Item = values.find((value: Item) => {
+      return value.name == item
+    })
+    if(!target) throw Error('Failed to find target')
+    return target.scrapPer
+}
+
+function convertOfferToScrap(offer: ItemOffering[]) {
+  let scrapValue = 0;
+  
+  // For each item, find value for 1x in scrap and multiply it by item quantity
+  for(let i=0;i<offer.length;i++) {
+    scrapValue += findScrapValue(offer[i].name) * offer[i].quantity
+  }
+
+  // Return value in scrap
+  return scrapValue
+}
+
+function areNumbersWithinMargin(num1: number, num2: number, marginPercentage: number): boolean {
+  // Calculate the absolute difference
+  const difference = Math.abs(num1 - num2);
+
+  // Calculate the margin based on the first number
+  const margin = Math.abs(num1 * marginPercentage / 100);
+
+  // Check if the difference is within the margin
+  return difference <= margin;
+}
 
 export default function Home() {
 
@@ -20,6 +51,9 @@ export default function Home() {
 
   // List of recommendations when user begins searching for items
   const [recommendations, setRecommendations] = useState<ItemName[]>([])
+
+  // String displaying trade evaluation, TODO: Improve
+  const [tradeFairness, setTradeFairness] = useState<string>()
 
   // Runs once when page is first loaded
   useEffect(() => {
@@ -83,6 +117,27 @@ export default function Home() {
     setRecommendations(searchItems())
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemSearchQuery])
+
+  // Runs anytime either parties offering is updated
+  useEffect(() => {
+    // If either offer is empty, exit without evaluating trade
+    if(senderOffer.length<1 || recipientOffer.length < 1) {
+      setTradeFairness(undefined)
+      return
+    }
+
+    // Evaluate trade
+    // Convert offers to scrap
+    let senderOfferValue = convertOfferToScrap(senderOffer)
+    let recipientOfferValue = convertOfferToScrap(recipientOffer)
+
+    setTradeFairness(`
+      Sender offered ~${recipientOfferValue.toFixed(0)} scrap,
+      recipient offered ~${senderOfferValue.toFixed(0)} scrap.
+      Trade is ${areNumbersWithinMargin(recipientOfferValue, senderOfferValue, 25) === true ? 'fair' : 'unfair'}.
+    `)
+
+  }, [senderOffer, recipientOffer])
 
   function editOffering(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
     // Find the correct offerings to edit
@@ -248,7 +303,7 @@ export default function Home() {
               Trade evaluation
             </div>
             <div className="w-full bg-glass p-3 flex flex-row items-center justify-center gap-4 text-center">
-              <p className="text-lg opacity-60 p-4">Add an item to both sides to begin evaluating.</p>
+              <p className="text-lg opacity-60 p-4">{tradeFairness ?? 'Add an item to both sides to begin evaluating.'}</p>
             </div>
           </div>
         </div>
