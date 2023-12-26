@@ -5,56 +5,6 @@ import { Item, ItemCategory, ItemName, ItemOffering } from "@/types"
 
 const { version } = require('../../package.json')
 
-function getFirstThursdayOfMonth (year: number, month: number): Date {
-  const date = new Date(year, month, 1);
-  // Day of the week: 0 is Sunday, 1 is Monday, ..., 4 is Thursday
-  while (date.getDay() !== 4) {
-      date.setDate(date.getDate() + 1);
-  }
-  return date;
-}
-
-function daysSinceFirstThursdayOfMonth(): number {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth(); // January is 0, February is 1, etc.
-  const firstThursday = getFirstThursdayOfMonth(year, month);
-
-  const diff = today.getTime() - firstThursday.getTime();
-  return Math.floor(diff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-}
-
-function findItem(item: ItemName): Item {
-    const target: Item = values.find((value: Item) => {
-      return value.name == item
-    })
-    if(!target) throw Error('Failed to find target')
-    return target
-}
-
-function areNumbersWithinMargin(num1: number, num2: number, marginPercentage: number): boolean {
-  // Calculate the absolute difference
-  const difference = Math.abs(num1 - num2);
-
-  // Calculate the margin based on the first number
-  const margin = Math.abs(num1 * marginPercentage / 100);
-
-  // Check if the difference is within the margin
-  return difference <= margin;
-}
-
-function daysSinceDate (inputDate: string | Date): number {
-  const givenDate = new Date(inputDate);
-  const currentDate = new Date();
-
-  // Ensure that the time part is not considered in the difference
-  givenDate.setHours(0, 0, 0, 0);
-  currentDate.setHours(0, 0, 0, 0);
-
-  const diff = currentDate.getTime() - givenDate.getTime();
-  return Math.floor(diff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-};
-
 export default function Home() {
 
   // Sender & Recipient names
@@ -98,6 +48,56 @@ export default function Home() {
       }
     }
   }, [])
+
+  function getFirstThursdayOfMonth (year: number, month: number): Date {
+    const date = new Date(year, month, 1);
+    // Day of the week: 0 is Sunday, 1 is Monday, ..., 4 is Thursday
+    while (date.getDay() !== 4) {
+        date.setDate(date.getDate() + 1);
+    }
+    return date;
+  }
+  
+  function daysSinceFirstThursdayOfMonth(): number {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth(); // January is 0, February is 1, etc.
+    const firstThursday = getFirstThursdayOfMonth(year, month);
+  
+    const diff = today.getTime() - firstThursday.getTime();
+    return Math.floor(diff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+  }
+  
+  function findItem(item: ItemName): Item {
+      const target: Item = values.find((value: Item) => {
+        return value.name == item
+      })
+      if(!target) throw Error('Failed to find target')
+      return target
+  }
+  
+  function areNumbersWithinMargin(num1: number, num2: number, marginPercentage: number): boolean {
+    // Calculate the absolute difference
+    const difference = Math.abs(num1 - num2);
+  
+    // Calculate the margin based on the first number
+    const margin = Math.abs(num1 * marginPercentage / 100);
+  
+    // Check if the difference is within the margin
+    return difference <= margin;
+  }
+  
+  function daysSinceDate (inputDate: string | Date): number {
+    const givenDate = new Date(inputDate);
+    const currentDate = new Date();
+  
+    // Ensure that the time part is not considered in the difference
+    givenDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+  
+    const diff = currentDate.getTime() - givenDate.getTime();
+    return Math.floor(diff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+  };
 
   // Returns the similarity between two strings, as a number
   function levenshtein(a: string, b: string): number {
@@ -400,7 +400,7 @@ export default function Home() {
               Trade evaluation
             </div>
             <div className="w-full bg-glass p-3 flex flex-col items-center justify-center p-6 gap-2 text-center">
-              <p className="text-lg opacity-60">{(senderOffer.length > 0 && recipientOffer.length > 0) ? `Trade is ${areNumbersWithinMargin(convertOfferToScrap(recipientOffer), convertOfferToScrap(senderOffer), 25) === true ? 'fair' : `unfair. ${convertOfferToScrap(senderOffer) > convertOfferToScrap(recipientOffer) ? `${recipientName ?? 'Recipient'} should offer more.` : `${senderName ?? 'You'} should offer more.`}`}` : 'Add an item to both sides to begin evaluating.'}</p>
+              <p className="text-lg opacity-60">{(senderOffer.length > 0 && recipientOffer.length > 0) ? `Trade is ${areNumbersWithinMargin(convertOfferToScrap(recipientOffer), convertOfferToScrap(senderOffer), 25) === true ? 'fair.' : `unfair. ${convertOfferToScrap(senderOffer) > convertOfferToScrap(recipientOffer) ? `${recipientName ?? 'Recipient'} should offer more.` : `${senderName ?? 'You'} should offer more.`}`}` : 'Add an item to both sides to begin evaluating.'}</p>
               {senderOffer.length > 0 && recipientOffer.length > 0 ? <p className="max-w-sm opacity-40 text-sm">{senderName ?? 'You'} offered ~{Number(convertOfferToScrap(senderOffer).toFixed(0)).toLocaleString()} scrap worth of goods.<br/>{recipientName ?? 'Recipient'} offered ~{Number(convertOfferToScrap(recipientOffer).toFixed(0)).toLocaleString()} scrap worth of goods.</p> : <></>}
             </div>
           </div>
