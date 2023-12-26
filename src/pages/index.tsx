@@ -150,33 +150,33 @@ export default function Home() {
   // Finds the closest value from the input string in the ItemName enum
   function searchItems(): ItemName[] {
     if (!itemSearchQuery) {
-      console.log(`No query`);
+      console.log('No query');
       return [];
     }
   
     const enumValues = Object.values(ItemName);
-    const queryLower = itemSearchQuery.toLowerCase();
+    const lowerCaseQuery = itemSearchQuery.toLowerCase();
   
-    // Calculate similarity scores and check for start matches
-    const similarityScores = enumValues.map(enumValue => {
-      const enumValueLower = enumValue.toLowerCase();
-      return {
-        enumValue,
-        score: levenshtein(queryLower, enumValueLower),
-        startsWithQuery: enumValueLower.startsWith(queryLower)
-      };
-    });
+    // Find substring matches
+    const substringMatches = enumValues.filter(enumValue => 
+      enumValue.toLowerCase().includes(lowerCaseQuery)
+    );
   
-    // First, prioritize strings that start with the query, then sort by Levenshtein score
-    similarityScores.sort((a, b) => {
-      if (a.startsWithQuery && !b.startsWithQuery) return -1;
-      if (!a.startsWithQuery && b.startsWithQuery) return 1;
-      return a.score - b.score;
-    });
+    // Find closest matches using Levenshtein distance for non-substring items
+    const nonSubstringEnumValues = enumValues.filter(enumValue => 
+      !enumValue.toLowerCase().includes(lowerCaseQuery)
+    );
+    
+    const similarityScores = nonSubstringEnumValues.map(enumValue => ({
+      enumValue,
+      score: levenshtein(lowerCaseQuery, enumValue.toLowerCase())
+    }));
   
-    // Filter and return the closest matches
-    const closestMatches = similarityScores.filter(item => item.score === similarityScores[0].score);
-    return closestMatches.map(item => item.enumValue as ItemName);
+    similarityScores.sort((a, b) => a.score - b.score);
+    const levenshteinMatches = similarityScores.map(item => item.enumValue);
+  
+    // Combine substring matches and Levenshtein distance matches
+    return [...new Set([...substringMatches, ...levenshteinMatches])];
   }
 
   // Runs every time the input search query is updated
