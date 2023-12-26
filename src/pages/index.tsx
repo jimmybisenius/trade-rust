@@ -27,6 +27,15 @@ export default function Home() {
   // Target inventory
   const [targetInventory, setTargetInventory] = useState<'sender' | 'recipient'>('recipient')
 
+  // Is conversion window visible
+  const [converting, setConverting] = useState<'sender' | 'recipient' | undefined>(undefined)
+
+  // Search query for conversion window
+  const [conversionSearchQuery, setConversionSearchQuery] = useState<string | undefined>()
+
+  // Recommendations for conversion window
+  const [conversionRecommendations, setConversionRecommendations] = useState<ItemName[]>([])
+
   // Runs once when page is first loaded
   useEffect(() => {
     // Only run on client
@@ -191,7 +200,7 @@ export default function Home() {
   }
 
   // Finds the closest value from the input string in the ItemName enum
-  function searchItems(): ItemName[] {
+  function searchItems(itemSearchQuery: string): ItemName[] {
     let results: ItemName[] = [];
 
     if(!itemSearchQuery) throw Error('Search query is required')
@@ -223,9 +232,16 @@ export default function Home() {
   // Runs every time the input search query is updated
   useEffect(() => {
     if(!itemSearchQuery) return
-    setRecommendations(searchItems())
+    setRecommendations(searchItems(itemSearchQuery))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemSearchQuery])
+
+    // Runs every time the conversion input search query is updated
+    useEffect(() => {
+      if(!conversionSearchQuery) return
+      setConversionRecommendations(searchItems(conversionSearchQuery))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [conversionSearchQuery])
 
   function editOffering(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
     // Find the correct offerings to edit
@@ -313,11 +329,57 @@ export default function Home() {
      }
   }
 
+  // Convert loot to quantity of a given item
+  function convertLootToItem(targetLoot: 'sender' | 'recipient', itemName: ItemName) {
+    if(!daysSinceWipe) throw Error('Days since wipe is required')
+    let lootInScrap = convertOfferToScrap(targetLoot === 'sender' ? senderOffer : recipientOffer)
+    let targetItem: Item = values.find((value: Item) => {
+      return value.name === itemName
+    })
+    let quantity = Number((lootInScrap / (targetItem.scrapPer - daysSinceWipe * targetItem.depreciationPerDay)).toFixed(1)).toLocaleString()
+    setConverting(undefined)
+    setConversionSearchQuery('')
+    setConversionRecommendations([])
+    alert(`${targetLoot === 'sender' ? `${senderName ? `${senderName}'s` : `Sender's`}` : `${recipientName ? `${recipientName}'s` : `The recipient's`}`} loot is worth ${quantity} ${itemName}'s.`)
+  }
+
+
   // If page is loading, return loading message
   if(daysSinceWipe === undefined) return <p className="p-12 text-center w-full text-lg opacity-60 font-medium">Loading...</p>
 
+  if(converting){
+    return <div className="p-2 py-6 flex flex-col items-center justify-center">
+      <div className="flex flex-col max-w-6xl">
+        <h2 className="text-2xl mb-4">Select desired item:</h2>
+        <p className="text-lg mb-4 opacity-60">Select an item from below that you&apos;d like to convert this inventory to.</p>
+        <div className="flex flex-row w-full relative items-start justify-start">
+              <input onKeyDown={(e) => {if(e.key === 'Enter' && recommendations.length > 0) convertLootToItem(converting, recommendations[0])}}  value={conversionSearchQuery} onChange={(e) => {
+                setConversionSearchQuery(e.target.value)
+              }} style={{backgroundColor: '#403C34'}} className='p-4 pl-14 font-medium text-lg outline-none focus:ring focus:ring-crimson focus:ring-offset-2 focus:ring-2 focus:ring-offset-mud w-full' type="text" placeholder="e.g. 5.56 Rifle ammo"/>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-6 h-6 ml-4 mt-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+              {/* Drop-down of recommendations */}
+              {conversionSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9, maxHeight: 220, overflowY: 'scroll'}} className="shadow-lg bg-glass absolute w-full flex flex-col p-2 gap-1">
+                {conversionRecommendations.map((recommendation, i) => {
+                  const itemDetails = values.find((item: Item) => {
+                    return item.name === recommendation
+                  })
+                  
+                  return (
+                  <div className="bg-glass-brighter p-3 flex justify-start items-center capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => {
+                    convertLootToItem(converting, recommendation)
+                  }}>{(itemDetails && itemDetails.imageUrl) ? <img src={itemDetails.imageUrl} className="w-10 h-auto mr-3"/> : <></>}{recommendation}</div>
+                )})}
+                {conversionRecommendations.length < 1 ? <p className="text-center w-full mx-auto opacity-60 p-3 py-6">No items found with that name. Check your spelling and try again?</p> : <></>} 
+              </div> : <></>}
+            </div>
+      </div>
+    </div>
+  }
+
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen h-auto w-screen gap-8'>
+    <div className='flex flex-col items-center justify-center min-h-screen h-auto w-screen gap-8 lg:py-6'>
       {/* Interface */}
       <div className='flex flex-col lg:flex-row items-center justify-between w-full max-w-6xl gap-16 p-3 lg:p-0'>
         
@@ -386,7 +448,10 @@ export default function Home() {
                 if(pendingName === '') pendingName = undefined
                 window.localStorage.setItem('recipientName', pendingName ?? '')
                 setRecipientName(pendingName ?? undefined)
-            }}>{recipientName ?? 'Recipient'}</TradeHeader>
+            }} onClickConvert={() => {
+              if(recipientOffer.length < 1) throw Error('No items in recipient inventory.')
+              setConverting('recipient')}
+              }>{recipientName ?? 'Recipient'}</TradeHeader>
             <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 w-full px-2">
               {recipientOffer.map((item, i) => <TradeItem
                 item={item.name}
@@ -403,6 +468,9 @@ export default function Home() {
                 if(pendingName === '') pendingName = undefined
                 window.localStorage.setItem('senderName', pendingName ?? '')
                 setSenderName(pendingName ?? undefined)
+            }} onClickConvert={() => {
+              if(senderOffer.length < 1) throw Error('No items in sender inventory.')
+              setConverting('sender')
             }}>{senderName ?? 'Yourself'}</TradeHeader>
             <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 w-full px-2 mt-2">
               {senderOffer.map((item, i) => <TradeItem
