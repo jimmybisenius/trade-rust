@@ -210,7 +210,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 0.125,
-      
+      "imageUrl": "https://www.rust-items.com/icons/0df3cc16ba52b1b83159f69d383df5b7.png",
       "justification": "LW users chose this valuation"
     },
     {
@@ -777,7 +777,7 @@
       "csk": 4,
       "category": "AmmoExplo",
       "name": "explosive 5.56 rifle ammo",
-      "aliases": ["explosive 556 rifle ammo"],
+      "aliases": ["explosive 556 rifle ammo", "556 explosive rifle ammo", "5.56 explosive rifle ammo"],
       "noQty": false,
       "depreciationPerDay": 0.0142857142857143,
       "scrapPer": 8.2202842377261,
@@ -842,7 +842,7 @@
       "csk": 4,
       "category": "AmmoExplo",
       "name": "hv 5.56 rifle ammo",
-      "aliases": ["hv 556 rifle ammo", "high velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo", "high-velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo", "hv rifle ammo", "high velocity rifle ammo", "high-velocity rifle ammo"],
+      "aliases": ["556 hv rifle ammo", "5.56 hv rifle ammo", "hv 556 rifle ammo", "high velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo", "high-velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo", "hv rifle ammo", "high velocity rifle ammo", "high-velocity rifle ammo"],
       "noQty": false,
       "depreciationPerDay": 0.0142857142857143,
       "scrapPer": 6.83139534883721,
