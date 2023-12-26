@@ -412,7 +412,7 @@ export default function Home() {
       <div className="w-full flex flex-col gap-2 items-center justify-center max-w-6xl mx-auto p-4">
         <div className="w-full flex flex-col lg:flex-row gap-3 items-center justify-center text-center">
           <p className="text-sm opacity-60 max-w-xs lg:max-w-none">Rust Trade Evaluator is open-source, <a className="text-crimson hover:underline" href="https://github.com/jimmybisenius/trade-rust" target="_blank">view our source-code Github.</a></p>
-          <p className="text-sm opacity-60">Built by <a target="_blank" className="text-crimson hover:underline" href="#">PlasteredDragon</a> & <a target="_blank" className="text-crimson hover:underline" href="https://github.com/jimmybisenius">Burger.</a></p>
+          <p className="text-sm opacity-60">Built by <a target="_blank" className="text-crimson hover:underline" href="#">PlasteredDragon</a> & <a target="_blank" className="text-crimson hover:underline" href="https://github.com/jimmybisenius">Burger</a>.</p>
           <p className="text-sm opacity-60">All rights reserved.</p>
         </div>
         <p className="text-xs opacity-30">This site is is not officially affiliated with, endorsed by, or connected to the makers of "Rust" (Facepunch Studios).</p>
