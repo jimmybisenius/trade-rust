@@ -276,7 +276,8 @@ export default function Home() {
   if(daysSinceWipe === undefined) return <p className="p-12 text-center w-full text-lg opacity-60 font-medium">Loading...</p>
 
   return (
-    <div className='flex flex-row items-center justify-center min-h-screen h-auto w-screen'>
+    <div className='flex flex-col items-center justify-center min-h-screen h-auto w-screen gap-8'>
+      {/* Interface */}
       <div className='flex flex-col lg:flex-row items-center justify-between w-full max-w-6xl gap-16'>
         
         <div className='flex flex-col flex-1 gap-8'>
@@ -406,6 +407,15 @@ export default function Home() {
           </div>
         </div>
 
+      </div>
+      {/* Footer */}
+      <div className="w-full flex flex-col gap-2 items-center justify-center max-w-6xl mx-auto p-2">
+        <div className="w-full flex lg:flex-row gap-3 items-center justify-center text-center">
+          <p className="text-sm opacity-60">Rust Trade Evaluator is open-source, <a className="text-crimson hover:underline" href="https://github.com/jimmybisenius/trade-rust" target="_blank">view our source-code Github.</a></p>
+          <p className="text-sm opacity-60">Built by <a target="_blank" className="text-crimson hover:underline" href="#">PlasteredDragon</a> & <a target="_blank" className="text-crimson hover:underline" href="https://github.com/jimmybisenius">Burger.</a></p>
+          <p className="text-sm opacity-60">All rights reserved.</p>
+        </div>
+        <p className="text-xs opacity-30">This site is is not officially affiliated with, endorsed by, or connected to the makers of "Rust" (Facepunch Studios).</p>
       </div>
     </div>
   )
