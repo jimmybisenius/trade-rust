@@ -82,7 +82,7 @@
     {
       "csk": 0,
       "category": "Resources",
-      "name": "frags",
+      "name": "metal fragments",
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 0.0581395348837209,
@@ -112,7 +112,7 @@
     {
       "csk": 0,
       "category": "Resources",
-      "name": "hqm",
+      "name": "high-quality metal",
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 7.5,
@@ -122,7 +122,7 @@
     {
       "csk": 0,
       "category": "Resources",
-      "name": "hqm ore",
+      "name": "high-quality metal ore",
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 6.81818181818182,
@@ -152,7 +152,7 @@
     {
       "csk": 0,
       "category": "Resources",
-      "name": "lgf",
+      "name": "low-grade fuel",
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 0.5,
