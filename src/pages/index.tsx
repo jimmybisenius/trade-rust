@@ -196,7 +196,7 @@ export default function Home() {
       deleteOffering(itemName, originatingParty)
       return
     }
-    console.log(`New quantity: ${newQuantity}`)
+    if(newQuantity > 9999) newQuantity = 9999
     // Replace the target element with the updated quantity 
     let target = targetOfferings.find((item,i) => {
       if(item.name === itemName) {
@@ -326,6 +326,7 @@ export default function Home() {
                     // Add item to recipient side
                     if(isNaN(Number(quantity))) throw Error('Number not provided')
                     if(Number(quantity) === 0) throw Error('Cannot add item with 0 quantity.')
+                    if(Number(quantity) > 9999) quantity = '9999'
                     setRecipientOffer([{
                       name: recommendation,
                       quantity: Number(quantity)
