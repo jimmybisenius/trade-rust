@@ -12,11 +12,10 @@ export default function Table() {
                 <thead>
                     <tr>
                         <th colSpan={2} rowSpan={2} color="black"></th>
-                        <th colSpan={5} color="yellow" ><b>Day XX of Wipe</b></th>
+                        <th colSpan={3} color="yellow" ><b>Day XX of Wipe</b></th>
                     </tr>
                     <tr>
                         <th className="row-2" colSpan={2} color="#E2EFDA" align="center">(item value)</th>
-                        <th className="row-2" style={{backgroundColor: '#444'}} colSpan={2} align="center">(research trade)</th>
                         <th className="row-2" rowSpan={2} color="lightyellow"><b>Justification</b></th>
                     </tr>
                     <tr>
@@ -24,8 +23,6 @@ export default function Table() {
                         <th className="row-3" color="white"><b>Item</b></th>
                         <th className="row-3" color="#E2EFDA"><b>Scrap</b></th>
                         <th className="row-3" color="#C6E0B4"><b>Sulfur</b></th>
-                        <th className="row-3" style={{backgroundColor: '#444'}} color="#DDEBF7"><b>Scrap</b></th>
-                        <th className="row-3" style={{backgroundColor: '#444'}} color="#BDD7EE"><b>Sulfur</b></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,8 +32,6 @@ export default function Table() {
                             <td style={{textTransform: 'capitalize'}}>{item.name}</td>
                             <td>{(item.scrapPer).toFixed(2)}</td>
                             <td>{(item.scrapPer * sulfurPerScrap).toFixed(2)}</td>
-                            <td style={{backgroundColor: 'rgba(255,255,255,.05)'}}>?</td>
-                            <td style={{backgroundColor: 'rgba(255,255,255,.05)'}}>? * 8</td>
                             <td>{item.justification ?? 'Not provided.'}</td>
                         </tr>
                     ))}
