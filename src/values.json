@@ -842,7 +842,7 @@
       "csk": 4,
       "category": "AmmoExplo",
       "name": "hv 5.56 rifle ammo",
-      "aliases": ["hv 556 rifle ammo", "high velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo", "high-velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo"],
+      "aliases": ["hv 556 rifle ammo", "high velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo", "high-velocity 5.56 rifle ammo", "high-velocity 556 rifle ammo", "hv rifle ammo", "high velocity rifle ammo", "high-velocity rifle ammo"],
       "noQty": false,
       "depreciationPerDay": 0.0142857142857143,
       "scrapPer": 6.83139534883721,
