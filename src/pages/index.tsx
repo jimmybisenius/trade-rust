@@ -378,7 +378,7 @@ export default function Home() {
             </div>
             <div className="w-full bg-glass p-3 flex flex-col items-center justify-center p-6 gap-2 text-center">
               <p className="text-lg opacity-60">{(senderOffer.length > 0 && recipientOffer.length > 0) ? `Trade is ${areNumbersWithinMargin(convertOfferToScrap(recipientOffer), convertOfferToScrap(senderOffer), 25) === true ? 'fair' : `unfair. ${convertOfferToScrap(senderOffer) > convertOfferToScrap(recipientOffer) ? `${recipientName ?? 'Recipient'} should offer more.` : `${senderName ?? 'You'} should offer more.`}`}` : 'Add an item to both sides to begin evaluating.'}</p>
-              {senderOffer.length > 0 && recipientOffer.length > 0 ? <p className="max-w-sm opacity-40 text-sm">{senderName ?? 'You'} offered ~{convertOfferToScrap(senderOffer).toFixed(0)} scrap worth of goods.<br/>{recipientName ?? 'Recipient'} offered ~{convertOfferToScrap(recipientOffer).toFixed(0)} scrap worth of goods.</p> : <></>}
+              {senderOffer.length > 0 && recipientOffer.length > 0 ? <p className="max-w-sm opacity-40 text-sm">{senderName ?? 'You'} offered ~{Number(convertOfferToScrap(senderOffer).toFixed(0)).toLocaleString()} scrap worth of goods.<br/>{recipientName ?? 'Recipient'} offered ~{Number(convertOfferToScrap(recipientOffer).toFixed(0)).toLocaleString()} scrap worth of goods.</p> : <></>}
             </div>
           </div>
         </div>
