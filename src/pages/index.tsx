@@ -5,24 +5,31 @@ import { Item, ItemCategory, ItemName, ItemOffering } from "@/types"
 
 const { version } = require('../../package.json')
 
-function findScrapValue(item: ItemName): number {
+function getFirstThursdayOfMonth (year: number, month: number): Date {
+  const date = new Date(year, month, 1);
+  // Day of the week: 0 is Sunday, 1 is Monday, ..., 4 is Thursday
+  while (date.getDay() !== 4) {
+      date.setDate(date.getDate() + 1);
+  }
+  return date;
+}
+
+function daysSinceFirstThursdayOfMonth(): number {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth(); // January is 0, February is 1, etc.
+  const firstThursday = getFirstThursdayOfMonth(year, month);
+
+  const diff = today.getTime() - firstThursday.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+}
+
+function findItem(item: ItemName): Item {
     const target: Item = values.find((value: Item) => {
       return value.name == item
     })
     if(!target) throw Error('Failed to find target')
-    return target.scrapPer
-}
-
-function convertOfferToScrap(offer: ItemOffering[]) {
-  let scrapValue = 0;
-  
-  // For each item, find value for 1x in scrap and multiply it by item quantity
-  for(let i=0;i<offer.length;i++) {
-    scrapValue += findScrapValue(offer[i].name) * offer[i].quantity
-  }
-
-  // Return value in scrap
-  return scrapValue
+    return target
 }
 
 function areNumbersWithinMargin(num1: number, num2: number, marginPercentage: number): boolean {
@@ -35,6 +42,18 @@ function areNumbersWithinMargin(num1: number, num2: number, marginPercentage: nu
   // Check if the difference is within the margin
   return difference <= margin;
 }
+
+function daysSinceDate (inputDate: string | Date): number {
+  const givenDate = new Date(inputDate);
+  const currentDate = new Date();
+
+  // Ensure that the time part is not considered in the difference
+  givenDate.setHours(0, 0, 0, 0);
+  currentDate.setHours(0, 0, 0, 0);
+
+  const diff = currentDate.getTime() - givenDate.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+};
 
 export default function Home() {
 
@@ -55,6 +74,9 @@ export default function Home() {
   // String displaying trade evaluation, TODO: Improve
   const [tradeFairness, setTradeFairness] = useState<string>()
 
+  // Days since last wipe
+  const [daysSinceWipe, setDaysSinceWipe] = useState<number>()
+
   // Runs once when page is first loaded
   useEffect(() => {
     // Only run on client
@@ -64,6 +86,20 @@ export default function Home() {
     setSenderName(pendingSenderName === '' ? undefined : pendingSenderName as string)
     let pendingRecipientName = window.localStorage.getItem('recipientName')
     setRecipientName(pendingRecipientName === '' ? undefined : pendingRecipientName as string)
+    // Set days since last wipe
+    let lastWipe = window.localStorage.getItem('lastWipe')
+    if(!lastWipe || lastWipe=== '') {
+      setDaysSinceWipe(daysSinceFirstThursdayOfMonth())
+    } else {
+      const date = new Date(lastWipe)
+      // If last wipe was over one month ago, reset wipe
+      if(daysSinceDate(date) > 31) {
+        window.localStorage.setItem('lastWipe','')
+        setDaysSinceWipe(daysSinceFirstThursdayOfMonth())
+      } else {
+        setDaysSinceWipe(daysSinceDate(date))
+      }
+    }
   }, [])
 
   // Returns the similarity between two strings, as a number
@@ -91,6 +127,27 @@ export default function Home() {
     }
 
     return matrix[b.length][a.length];
+  }
+
+  // Converts offering to scrap
+  function convertOfferToScrap(offer: ItemOffering[]) {
+    if(!daysSinceWipe) throw Error('Cannot convert offer to scrap without knowing days since last wipe.')
+    let scrapValue = 0;
+    
+    // For each item, find value for 1x in scrap and multiply it by item quantity
+    for(let i=0;i<offer.length;i++) {
+      const item = findItem(offer[i].name)
+  
+      scrapValue += findItem(item.name).scrapPer * offer[i].quantity
+  
+      // TODO: Add research trades. If quantity == 1 and the item has research value, use that if greater than base value
+      // Apply depreciation
+      // TODO: Allow custom wipe dates/days since last wipe
+      scrapValue -= daysSinceWipe * item.depPerDay
+    }
+  
+    // Return value in scrap
+    return scrapValue
   }
 
   // Finds the closest value from the input string in the ItemName enum
@@ -145,7 +202,7 @@ export default function Home() {
     // Prompt user for new quantity
     let newQuantity: number | undefined = Number(prompt('Enter updated item quantity:')) ?? undefined
     // If new quantity is zero or undefined, delete offering from list and exit
-    if(!newQuantity) {
+    if(!newQuantity || isNaN(newQuantity)) {
       deleteOffering(itemName, originatingParty)
       return
     }
@@ -218,6 +275,8 @@ export default function Home() {
      }
   }
 
+  if(daysSinceWipe === undefined) return <p className="p-12 text-center w-full text-lg opacity-60 font-medium">Loading...</p>
+
   return (
     <div className='flex flex-row items-center justify-center min-h-screen h-auto w-screen'>
       <div className='flex flex-col lg:flex-row items-center justify-between w-full max-w-6xl gap-16'>
@@ -244,12 +303,23 @@ export default function Home() {
               {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9}} className="bg-glass absolute w-full flex flex-col p-2 gap-1">
                 {recommendations.map((recommendation, i) => (
                   <div className="bg-glass-brighter p-2 capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => {
+                    // If item already exists in recipient offering, throw error and clear recommendations + search string
+                    const existingItemOffering = recipientOffer.find((item) => {
+                      return item.name ===recommendation
+                    })
+                    if(existingItemOffering) {
+                      setItemSearchQuery('')
+                      setRecommendations([])
+                      throw Error('Item already exists in list, cannot add twice.')
+                    }
                     // Prompt for quantity
-                    let quantity: number = Number(prompt('How much?')) ?? 1
+                    let quantity: string | undefined | null = prompt('How much?')
                     // Add item to recipient side
+                    if(isNaN(Number(quantity))) throw Error('Number not provided')
+                    if(Number(quantity) === 0) throw Error('Cannot add item with 0 quantity.')
                     setRecipientOffer([{
                       name: recommendation,
-                      quantity
+                      quantity: Number(quantity)
                     },...recipientOffer])
                     // Clear recommendations and item search query to reset input state
                     setItemSearchQuery('')
@@ -260,6 +330,24 @@ export default function Home() {
               </div> : <></>}
             </div>
             <p className='opacity-60 italic'>Begin typing to add items and start a trade.</p>
+            <div onClick={() => {
+              const pendingDaysSinceWipe = prompt('How many days ago was your last server wipe?')
+              // If prompt is clear, reset
+              if(pendingDaysSinceWipe === '') {
+                setDaysSinceWipe(daysSinceFirstThursdayOfMonth())
+                return
+              }
+              // Error handling if prompt returned is not a valid number
+              if(isNaN(Number(pendingDaysSinceWipe))) throw Error('Number not provided')
+              // Convert # of days into a date
+              const currentDate = new Date();
+              currentDate.setDate(currentDate.getDate() - Number(pendingDaysSinceWipe));
+              localStorage.setItem('lastWipe', currentDate.toISOString())
+              setDaysSinceWipe(Number(pendingDaysSinceWipe))
+            }} className="flex flex-row items-center justify-start gap-2 cursor-pointer w-full mt-8">
+              <span className='opacity-60'>Days since last wipe: {daysSinceWipe} days.</span>
+              <span className="underline font-medium opacity-60 hover:opacity-100">Tap or click here to update.</span>
+            </div>
           </div>
         </div>
 
