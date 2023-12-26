@@ -24,6 +24,9 @@ export default function Home() {
   // Days since last wipe
   const [daysSinceWipe, setDaysSinceWipe] = useState<number>()
 
+  // Target inventory
+  const [targetInventory, setTargetInventory] = useState<'sender' | 'recipient'>('recipient')
+
   // Runs once when page is first loaded
   useEffect(() => {
     // Only run on client
@@ -307,16 +310,19 @@ export default function Home() {
                   
                   return (
                   <div className="bg-glass-brighter p-3 flex justify-start items-center capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => {
-                    // If item already exists in recipient offering, throw error and clear recommendations + search string
-                    const existingItemOffering = recipientOffer.find((item) => {
+                    // If item already exists in target offering, throw error and clear recommendations + search string
+                    const existingItemOffering = targetInventory === 'recipient' ? recipientOffer.find((item) => {
+                      return item.name ===recommendation
+                    }) : senderOffer.find((item) => {
                       return item.name ===recommendation
                     })
+
                     if(existingItemOffering) {
                       setItemSearchQuery('')
                       setRecommendations([])
                       throw Error('Item already exists in list, cannot add twice.')
                     }
-                    if(recipientOffer.length > 11) {
+                    if((targetInventory === 'recipient' && recipientOffer.length > 11) || (targetInventory === 'sender' && senderOffer.length > 11)) {
                       setItemSearchQuery('')
                       setRecommendations([])
                       throw Error('Only 12 items can be transacted per trade.')
@@ -327,10 +333,18 @@ export default function Home() {
                     if(isNaN(Number(quantity))) throw Error('Number not provided')
                     if(Number(quantity) === 0) throw Error('Cannot add item with 0 quantity.')
                     if(Number(quantity) > 9999) quantity = '9999'
-                    setRecipientOffer([{
-                      name: recommendation,
-                      quantity: Number(quantity)
-                    },...recipientOffer])
+                    if(targetInventory === 'recipient') {
+
+                      setRecipientOffer([{
+                        name: recommendation,
+                        quantity: Number(quantity)
+                      },...recipientOffer])
+                    } else {
+                      setSenderOffer([{
+                        name: recommendation,
+                        quantity: Number(quantity)
+                      },...senderOffer])
+                    }
                     // Clear recommendations and item search query to reset input state
                     setItemSearchQuery('')
                     setRecommendations([])
@@ -339,7 +353,10 @@ export default function Home() {
                 {recommendations.length < 1 ? <p>No items found with that name. Check your spelling and try again?</p> : <></>} 
               </div> : <></>}
             </div>
-            <p className='opacity-60 italic'>Begin typing to add items and start a trade.</p>
+            <div onClick={() => setTargetInventory(targetInventory === 'sender' ? 'recipient' : 'sender')} className="flex flex-col lg:flex-row items-center justify-start gap-2 cursor-pointer w-full mt-4">
+              <span className='opacity-60 italic'>Adding items to {targetInventory === 'sender' ? `${senderName ? `${senderName}'s` : 'Your'}` : `${recipientName ? `${recipientName}'s` : 'Recipient'}`} offer.</span>
+              <span className="underline font-medium opacity-60 hover:opacity-100">Click here to update your offer instead.</span>
+            </div>
             <div onClick={() => {
               const pendingDaysSinceWipe = prompt('How many days ago was your last server wipe?')
               // If prompt is clear, reset
@@ -355,9 +372,9 @@ export default function Home() {
               currentDate.setDate(currentDate.getDate() - Number(pendingDaysSinceWipe));
               localStorage.setItem('lastWipe', currentDate.toISOString())
               setDaysSinceWipe(Number(pendingDaysSinceWipe))
-            }} className="flex flex-col lg:flex-row items-center justify-start gap-2 cursor-pointer w-full mt-8">
+            }} className="flex flex-col lg:flex-row items-center justify-start gap-2 cursor-pointer w-full mt-4">
               <span className='opacity-60'>Days since last wipe: {daysSinceWipe} days.</span>
-              <span className="underline font-medium opacity-60 hover:opacity-100">Tap or click here to update.</span>
+              <span className="underline font-medium opacity-60 hover:opacity-100">Click here to update.</span>
             </div>
           </div>
         </div>
