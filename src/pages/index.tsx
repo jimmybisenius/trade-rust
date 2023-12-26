@@ -424,7 +424,7 @@ export default function Home() {
             </div>
             <div onClick={() => setTargetInventory(targetInventory === 'sender' ? 'recipient' : 'sender')} className="lg:text-sm flex flex-col lg:flex-row items-center justify-start gap-2 cursor-pointer w-full mt-3">
               <span className='opacity-60 italic'>Adding items to {targetInventory === 'sender' ? `${senderName ? `${senderName}'s` : 'Your'}` : `${recipientName ? `${recipientName}'s` : `the Recipient's`}`} offer.</span>
-              <span className="underline font-medium opacity-60 hover:opacity-100">Click here to update your offer instead.</span>
+              <span className="underline font-medium opacity-60 hover:opacity-100">Click here to update {targetInventory==='recipient' ? senderName ? `${senderName}'s` : `your` : recipientName ? `${recipientName}'s` : `the recipient's`} offer instead.</span>
             </div>
             <div onClick={() => {
               const pendingDaysSinceWipe = prompt('How many days ago was your last server wipe?')
