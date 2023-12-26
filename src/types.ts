@@ -44,5 +44,5 @@
     type Item,
     ItemName,
     ItemCategory,
-    ItemOffering
+    type ItemOffering
   }
