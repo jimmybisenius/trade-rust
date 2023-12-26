@@ -415,7 +415,7 @@ export default function Home() {
           <p className="text-sm opacity-60">Built by <a target="_blank" className="text-crimson hover:underline" href="#">PlasteredDragon</a> & <a target="_blank" className="text-crimson hover:underline" href="https://github.com/jimmybisenius">Burger</a>.</p>
           <p className="text-sm opacity-60">All rights reserved.</p>
         </div>
-        <p className="text-xs opacity-30">This site is is not officially affiliated with, endorsed by, or connected to the makers of "Rust" (Facepunch Studios).</p>
+        <p className="text-xs opacity-30">This site is is not officially affiliated with, endorsed by, or connected to the makers of &quot;Rust&quot; (Facepunch Studios).</p>
       </div>
     </div>
   )
