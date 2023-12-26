@@ -205,6 +205,9 @@ export default function Home() {
 
     if(!itemSearchQuery) throw Error('Search query is required')
 
+    // Disable case-sensitivity in search
+    itemSearchQuery = itemSearchQuery.toLowerCase()
+
     values.forEach((item: Item) => {
         // Check for exact match in name and aliases
         if (item.name.startsWith(itemSearchQuery) || 
