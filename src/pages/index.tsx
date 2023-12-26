@@ -71,9 +71,6 @@ export default function Home() {
   // List of recommendations when user begins searching for items
   const [recommendations, setRecommendations] = useState<ItemName[]>([])
 
-  // String displaying trade evaluation, TODO: Improve
-  const [tradeFairness, setTradeFairness] = useState<string>()
-
   // Days since last wipe
   const [daysSinceWipe, setDaysSinceWipe] = useState<number>()
 
@@ -174,27 +171,6 @@ export default function Home() {
     setRecommendations(searchItems())
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemSearchQuery])
-
-  // Runs anytime either parties offering is updated
-  useEffect(() => {
-    // If either offer is empty, exit without evaluating trade
-    if(senderOffer.length<1 || recipientOffer.length < 1) {
-      setTradeFairness(undefined)
-      return
-    }
-
-    // Evaluate trade
-    // Convert offers to scrap
-    let senderOfferValue = convertOfferToScrap(senderOffer)
-    let recipientOfferValue = convertOfferToScrap(recipientOffer)
-
-    setTradeFairness(`
-      ${senderName ?? 'Sender'} offered ~${Number(recipientOfferValue.toFixed(0)).toLocaleString()} scrap worth of goods,
-      ${recipientName ?? 'Recipient'} offered ~${Number(senderOfferValue.toFixed(0)).toLocaleString()} scrap worth of goods.
-      Trade is ${areNumbersWithinMargin(recipientOfferValue, senderOfferValue, 25) === true ? 'fair' : 'unfair'}.
-    `)
-
-  }, [senderOffer, recipientOffer])
 
   function editOffering(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
     // Find the correct offerings to edit
@@ -400,8 +376,9 @@ export default function Home() {
             <div className="w-full bg-glass mt-2 p-3 flex flex-row items-center justify-start font-medium text-lg">
               Trade evaluation
             </div>
-            <div className="w-full bg-glass p-3 flex flex-row items-center justify-center gap-4 text-center">
-              <p className="text-lg opacity-60 p-4">{tradeFairness ?? 'Add an item to both sides to begin evaluating.'}</p>
+            <div className="w-full bg-glass p-3 flex flex-col items-center justify-center p-6 gap-2 text-center">
+              <p className="text-lg opacity-60">{(senderOffer.length > 0 && recipientOffer.length > 0) ? `Trade is ${areNumbersWithinMargin(convertOfferToScrap(recipientOffer), convertOfferToScrap(senderOffer), 25) === true ? 'fair' : `unfair. ${convertOfferToScrap(senderOffer) > convertOfferToScrap(recipientOffer) ? `${recipientName ?? 'Recipient'} should offer more.` : `${senderName ?? 'You'} should offer more.`}`}` : 'Add an item to both sides to begin evaluating.'}</p>
+              {senderOffer.length > 0 && recipientOffer.length > 0 ? <p className="max-w-sm opacity-40 text-sm">{senderName ?? 'You'} offered ~{convertOfferToScrap(senderOffer).toFixed(0)} scrap worth of goods.<br/>{recipientName ?? 'Recipient'} offered ~{convertOfferToScrap(recipientOffer).toFixed(0)} scrap worth of goods.</p> : <></>}
             </div>
           </div>
         </div>
