@@ -78,6 +78,47 @@ export default function Home() {
       if(!target) throw Error('Failed to find target')
       return target
   }
+
+  function addItem(recommendation: ItemName) {
+    // If item already exists in target offering, throw error and clear recommendations + search string
+    const existingItemOffering = targetInventory === 'recipient' ? recipientOffer.find((item) => {
+      return item.name ===recommendation
+    }) : senderOffer.find((item) => {
+      return item.name ===recommendation
+    })
+
+    if(existingItemOffering) {
+      setItemSearchQuery('')
+      setRecommendations([])
+      throw Error('Item already exists in list, cannot add twice.')
+    }
+    if((targetInventory === 'recipient' && recipientOffer.length > 11) || (targetInventory === 'sender' && senderOffer.length > 11)) {
+      setItemSearchQuery('')
+      setRecommendations([])
+      throw Error('Only 12 items can be transacted per trade.')
+    }
+    // Prompt for quantity
+    let quantity: string | undefined | null = prompt('How much?')
+    // Add item to recipient side
+    if(isNaN(Number(quantity))) throw Error('Number not provided')
+    if(Number(quantity) === 0) throw Error('Cannot add item with 0 quantity.')
+    if(Number(quantity) > 9999) quantity = '9999'
+    if(targetInventory === 'recipient') {
+
+      setRecipientOffer([{
+        name: recommendation,
+        quantity: Number(quantity)
+      },...recipientOffer])
+    } else {
+      setSenderOffer([{
+        name: recommendation,
+        quantity: Number(quantity)
+      },...senderOffer])
+    }
+    // Clear recommendations and item search query to reset input state
+    setItemSearchQuery('')
+    setRecommendations([])
+  }
   
   function areNumbersWithinMargin(num1: number, num2: number, marginPercentage: number): boolean {
     // Calculate the absolute difference
@@ -292,7 +333,7 @@ export default function Home() {
           <div className='flex flex-col gap-4 items-center text-center lg:items-start lg:text-left'>
             <label className='font-medium text-xl'>What are you trading?</label>
             <div className="flex flex-row w-full relative items-start justify-start">
-              <input value={itemSearchQuery} onChange={(e) => {
+              <input onKeyDown={(e) => {if(e.key === 'Enter' && recommendations.length > 0) addItem(recommendations[0])}}  value={itemSearchQuery} onChange={(e) => {
                 setItemSearchQuery(e.target.value)
               }} style={{backgroundColor: '#403C34'}} className='p-4 pl-14 font-medium text-lg outline-none focus:ring focus:ring-crimson focus:ring-offset-2 focus:ring-2 focus:ring-offset-mud w-full' type="text" placeholder="e.g. 5.56 Rifle ammo"/>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-6 h-6 ml-4 mt-4">
@@ -306,46 +347,7 @@ export default function Home() {
                   })
                   
                   return (
-                  <div className="bg-glass-brighter p-3 flex justify-start items-center capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => {
-                    // If item already exists in target offering, throw error and clear recommendations + search string
-                    const existingItemOffering = targetInventory === 'recipient' ? recipientOffer.find((item) => {
-                      return item.name ===recommendation
-                    }) : senderOffer.find((item) => {
-                      return item.name ===recommendation
-                    })
-
-                    if(existingItemOffering) {
-                      setItemSearchQuery('')
-                      setRecommendations([])
-                      throw Error('Item already exists in list, cannot add twice.')
-                    }
-                    if((targetInventory === 'recipient' && recipientOffer.length > 11) || (targetInventory === 'sender' && senderOffer.length > 11)) {
-                      setItemSearchQuery('')
-                      setRecommendations([])
-                      throw Error('Only 12 items can be transacted per trade.')
-                    }
-                    // Prompt for quantity
-                    let quantity: string | undefined | null = prompt('How much?')
-                    // Add item to recipient side
-                    if(isNaN(Number(quantity))) throw Error('Number not provided')
-                    if(Number(quantity) === 0) throw Error('Cannot add item with 0 quantity.')
-                    if(Number(quantity) > 9999) quantity = '9999'
-                    if(targetInventory === 'recipient') {
-
-                      setRecipientOffer([{
-                        name: recommendation,
-                        quantity: Number(quantity)
-                      },...recipientOffer])
-                    } else {
-                      setSenderOffer([{
-                        name: recommendation,
-                        quantity: Number(quantity)
-                      },...senderOffer])
-                    }
-                    // Clear recommendations and item search query to reset input state
-                    setItemSearchQuery('')
-                    setRecommendations([])
-                  }}>{(itemDetails && itemDetails.imageUrl) ? <img src={itemDetails.imageUrl} className="w-10 h-auto mr-3"/> : <></>}{recommendation}</div>
+                  <div className="bg-glass-brighter p-3 flex justify-start items-center capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => addItem(recommendation)}>{(itemDetails && itemDetails.imageUrl) ? <img src={itemDetails.imageUrl} className="w-10 h-auto mr-3"/> : <></>}{recommendation}</div>
                 )})}
                 {recommendations.length < 1 ? <p className="text-center w-full mx-auto opacity-60 p-3 py-6">No items found with that name. Check your spelling and try again?</p> : <></>} 
               </div> : <></>}
