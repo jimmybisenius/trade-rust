@@ -149,20 +149,34 @@ export default function Home() {
 
   // Finds the closest value from the input string in the ItemName enum
   function searchItems(): ItemName[] {
-    if(!itemSearchQuery) {
-      console.log(`No query`)
-      return []
+    if (!itemSearchQuery) {
+      console.log(`No query`);
+      return [];
     }
+  
     const enumValues = Object.values(ItemName);
-    const similarityScores = enumValues.map(enumValue => ({
+    const queryLower = itemSearchQuery.toLowerCase();
+  
+    // Calculate similarity scores and check for start matches
+    const similarityScores = enumValues.map(enumValue => {
+      const enumValueLower = enumValue.toLowerCase();
+      return {
         enumValue,
-        score: levenshtein(itemSearchQuery.toLowerCase(), enumValue.toLowerCase())
-    }));
-
-    similarityScores.sort((a, b) => a.score - b.score);
+        score: levenshtein(queryLower, enumValueLower),
+        startsWithQuery: enumValueLower.startsWith(queryLower)
+      };
+    });
+  
+    // First, prioritize strings that start with the query, then sort by Levenshtein score
+    similarityScores.sort((a, b) => {
+      if (a.startsWithQuery && !b.startsWithQuery) return -1;
+      if (!a.startsWithQuery && b.startsWithQuery) return 1;
+      return a.score - b.score;
+    });
+  
+    // Filter and return the closest matches
     const closestMatches = similarityScores.filter(item => item.score === similarityScores[0].score);
-
-    return closestMatches.map(item => item.enumValue);
+    return closestMatches.map(item => item.enumValue as ItemName);
   }
 
   // Runs every time the input search query is updated
@@ -271,12 +285,12 @@ export default function Home() {
             <div className="flex flex-row w-full relative items-start justify-start">
               <input value={itemSearchQuery} onChange={(e) => {
                 setItemSearchQuery(e.target.value)
-              }} style={{backgroundColor: '#403C34'}} className='p-4 pl-14 font-medium text-lg outline-none focus:ring focus:ring-crimson focus:ring-offset-2 focus:ring-2 focus:ring-offset-mud w-full' type="text" placeholder="e.g. Low-grade fuel"/>
+              }} style={{backgroundColor: '#403C34'}} className='p-4 pl-14 font-medium text-lg outline-none focus:ring focus:ring-crimson focus:ring-offset-2 focus:ring-2 focus:ring-offset-mud w-full' type="text" placeholder="e.g. 5.56 Rifle ammo"/>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-6 h-6 ml-4 mt-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
               {/* Droppdown of recommendations */}
-              {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9}} className="bg-glass absolute w-full flex flex-col p-2 gap-1">
+              {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9, maxHeight: 200, overflowY: 'scroll'}} className="bg-glass absolute w-full flex flex-col p-2 gap-1">
                 {recommendations.map((recommendation, i) => {
                   const itemDetails = values.find((item: Item) => {
                     return item.name === recommendation
@@ -310,7 +324,7 @@ export default function Home() {
                     // Clear recommendations and item search query to reset input state
                     setItemSearchQuery('')
                     setRecommendations([])
-                  }}>{itemDetails.imageUrl ? <img src={itemDetails.imageUrl} className="w-10 h-auto mr-3"/> : <></>}{recommendation}</div>
+                  }}>{(itemDetails && itemDetails.imageUrl) ? <img src={itemDetails.imageUrl} className="w-10 h-auto mr-3"/> : <></>}{recommendation}</div>
                 )})}
                 {recommendations.length < 1 ? <p>No items found with that name. Check your spelling and try again?</p> : <></>} 
               </div> : <></>}
@@ -321,6 +335,7 @@ export default function Home() {
               // If prompt is clear, reset
               if(pendingDaysSinceWipe === '') {
                 setDaysSinceWipe(daysSinceFirstThursdayOfMonth())
+                localStorage.setItem('lastWipe','')
                 return
               }
               // Error handling if prompt returned is not a valid number
