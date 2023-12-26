@@ -1,7 +1,7 @@
 import { TradeHeader, TradeItem } from "@/components"
 import { use, useEffect, useState } from "react"
 
-import { Item, ItemCategory, ItemName } from "@/types"
+import { Item, ItemCategory, ItemName, ItemOffering } from "@/types"
 
 const { version } = require('../../package.json')
 
@@ -15,8 +15,8 @@ export default function Home() {
   const [itemSearchQuery, setItemSearchQuery] = useState<string | undefined>()
 
   // Offer of each party in the trade
-  const [senderOffer, setSenderOffer] = useState<Item[]>([])
-  const [recipientOffer, setRecipientOffer] = useState<Item[]>([])
+  const [senderOffer, setSenderOffer] = useState<ItemOffering[]>([])
+  const [recipientOffer, setRecipientOffer] = useState<ItemOffering[]>([])
 
   // List of recommendations when user begins searching for items
   const [recommendations, setRecommendations] = useState<ItemName[]>([])
@@ -111,7 +111,16 @@ export default function Home() {
                 {recommendations.map((recommendation, i) => (
                   <div className="bg-glass-brighter p-2 capitalize cursor-pointer" key={i} onClick={() => {
                     // Prompt for quantity
+                    let quantity: number = Number(prompt('How much?')) ?? 1
                     // Add item to recipient side
+                    setRecipientOffer([{
+                      name: recommendation,
+                      quantity
+                    },...recipientOffer])
+                    // Clear recommendations and item search query to reset input state
+                    // TODO: first line below not working
+                    setItemSearchQuery(undefined)
+                    setRecommendations([])
                   }}>{recommendation}</div>
                 ))}
                 {recommendations.length < 1 ? <p>No items found with that name. Check your spelling and try again?</p> : <></>} 
@@ -131,7 +140,7 @@ export default function Home() {
                 setRecipientName(pendingName ?? undefined)
             }}>{recipientName ?? 'Recipient'}</TradeHeader>
             <div className="grid grid-cols-6 gap-2 w-full px-2">
-              {recipientOffer.map((item, i) => <TradeItem key={i}/>)}
+              {recipientOffer.map((item, i) => <TradeItem item={item.name} quantity={item.quantity} key={i}/>)}
               {[...Array(12-recipientOffer.length)].map((e, i) => <TradeItem key={i + recipientOffer.length}/>)}
             </div>
             <TradeHeader marginTop editable onClick={() => {
@@ -141,7 +150,7 @@ export default function Home() {
                 setSenderName(pendingName ?? undefined)
             }}>{senderName ?? 'Yourself'}</TradeHeader>
             <div className="grid grid-cols-6 gap-2 w-full mt-2 px-2">
-              {senderOffer.map((item, i) => <TradeItem key={i}/>)}
+              {senderOffer.map((item, i) => <TradeItem item={item.name} quantity={item.quantity} key={i}/>)}
               {[...Array(12-senderOffer.length)].map((e, i) => <TradeItem key={i + senderOffer.length}/>)}
             </div>
             <div className="w-full bg-glass mt-2 p-3 flex flex-row items-center justify-start font-medium text-lg">

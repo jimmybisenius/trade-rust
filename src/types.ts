@@ -35,8 +35,14 @@
     justification?: string
   }
 
+  type ItemOffering = {
+    name: ItemName
+    quantity: number
+  }
+
   export {
     type Item,
     ItemName,
-    ItemCategory
+    ItemCategory,
+    ItemOffering
   }
