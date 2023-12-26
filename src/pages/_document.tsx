@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
 const title = 'Rust Trade Evaluator - Prevent teaming, trade fairly'
-const description = 'An unofficial, free trade evaluator for Rust players. Enter trade items and quantity and see how fair a trade is.'
+const description = 'An unofficial, free trade evaluator for Rust players. Enter trade items and quantity and see how fair a trade is. By PD & Burger, for Lone Wolf.'
 const siteUrl = 'https://www.trade-rust.com'
 const ogImageUrl = `${siteUrl}/og-image.png`
 
