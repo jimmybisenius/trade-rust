@@ -278,18 +278,18 @@ export default function Home() {
   return (
     <div className='flex flex-col items-center justify-center min-h-screen h-auto w-screen gap-8'>
       {/* Interface */}
-      <div className='flex flex-col lg:flex-row items-center justify-between w-full max-w-6xl gap-16'>
+      <div className='flex flex-col lg:flex-row items-center justify-between w-full max-w-6xl gap-16 p-3 lg:p-0'>
         
         <div className='flex flex-col flex-1 gap-8'>
-          <div className='flex flex-row w-full items-end justify-start gap-8'>
+          <div className='flex flex-col items-center lg:flex-row w-full lg:items-end justify-start gap-8 pt-8 lg:pt-0'>
             <img className='h-10 w-auto' src="/rust-logo.png"/>
             <div className='flex flex-row items-end justify-start gap-4'>
               <h1 className='text-3xl font-semibold'>Trade evaluator</h1>
               <p className='opacity-60 text-xl'>v{version}</p>
             </div>
           </div>
-          <p className='text-2xl opacity-80 leading-10'>An unofficial trade evaluator for Rust players. Enter your items to see how fair a trade is.</p>
-          <div className='flex flex-col gap-4'>
+          <p className='text-center lg:text-left text-2xl opacity-80 leading-10'>An unofficial trade evaluator for Rust players. Enter your items to see how fair a trade is.</p>
+          <div className='flex flex-col gap-4 items-center text-center lg:items-start lg:text-left'>
             <label className='font-medium text-xl'>What are you trading?</label>
             <div className="flex flex-row w-full relative items-start justify-start">
               <input value={itemSearchQuery} onChange={(e) => {
@@ -299,7 +299,7 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
               {/* Droppdown of recommendations */}
-              {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9, maxHeight: 200, overflowY: 'scroll'}} className="bg-glass absolute w-full flex flex-col p-2 gap-1">
+              {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9, maxHeight: 220, overflowY: 'scroll'}} className="shadow-lg bg-glass absolute w-full flex flex-col p-2 gap-1">
                 {recommendations.map((recommendation, i) => {
                   const itemDetails = values.find((item: Item) => {
                     return item.name === recommendation
@@ -354,7 +354,7 @@ export default function Home() {
               currentDate.setDate(currentDate.getDate() - Number(pendingDaysSinceWipe));
               localStorage.setItem('lastWipe', currentDate.toISOString())
               setDaysSinceWipe(Number(pendingDaysSinceWipe))
-            }} className="flex flex-row items-center justify-start gap-2 cursor-pointer w-full mt-8">
+            }} className="flex flex-col lg:flex-row items-center justify-start gap-2 cursor-pointer w-full mt-8">
               <span className='opacity-60'>Days since last wipe: {daysSinceWipe} days.</span>
               <span className="underline font-medium opacity-60 hover:opacity-100">Tap or click here to update.</span>
             </div>
@@ -409,9 +409,9 @@ export default function Home() {
 
       </div>
       {/* Footer */}
-      <div className="w-full flex flex-col gap-2 items-center justify-center max-w-6xl mx-auto p-2">
-        <div className="w-full flex lg:flex-row gap-3 items-center justify-center text-center">
-          <p className="text-sm opacity-60">Rust Trade Evaluator is open-source, <a className="text-crimson hover:underline" href="https://github.com/jimmybisenius/trade-rust" target="_blank">view our source-code Github.</a></p>
+      <div className="w-full flex flex-col gap-2 items-center justify-center max-w-6xl mx-auto p-4">
+        <div className="w-full flex flex-col lg:flex-row gap-3 items-center justify-center text-center">
+          <p className="text-sm opacity-60 max-w-xs lg:max-w-none">Rust Trade Evaluator is open-source, <a className="text-crimson hover:underline" href="https://github.com/jimmybisenius/trade-rust" target="_blank">view our source-code Github.</a></p>
           <p className="text-sm opacity-60">Built by <a target="_blank" className="text-crimson hover:underline" href="#">PlasteredDragon</a> & <a target="_blank" className="text-crimson hover:underline" href="https://github.com/jimmybisenius">Burger.</a></p>
           <p className="text-sm opacity-60">All rights reserved.</p>
         </div>
