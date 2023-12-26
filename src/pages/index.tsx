@@ -348,7 +348,7 @@ export default function Home() {
   if(daysSinceWipe === undefined) return <p className="p-12 text-center w-full text-lg opacity-60 font-medium">Loading...</p>
 
   if(converting){
-    return <div className="p-2 py-6 flex flex-col items-center justify-center">
+    return <div className="px-6 py-12 flex flex-col items-center justify-center">
       <div className="flex flex-col max-w-6xl">
         <h2 className="text-2xl mb-4">Select desired item:</h2>
         <p className="text-lg mb-4 opacity-60">Select an item from below that you&apos;d like to convert this inventory to.</p>
@@ -373,7 +373,12 @@ export default function Home() {
                 )})}
                 {conversionRecommendations.length < 1 ? <p className="text-center w-full mx-auto opacity-60 p-3 py-6">No items found with that name. Check your spelling and try again?</p> : <></>} 
               </div> : <></>}
-            </div>
+        </div>
+        <p className='opacity-60 hover:underline text-sm mt-8 text-center cursor-pointer' onClick={() => {
+          setConversionSearchQuery('')
+          setConversionRecommendations([])
+          setConverting(undefined)
+        }}>Return to trade evaluator</p>
       </div>
     </div>
   }
