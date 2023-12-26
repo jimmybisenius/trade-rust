@@ -36,7 +36,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 0.125,
-      
+      "imageUrl": "https://www.rust-items.com/icons/8ef4a96a346a6f0767c691bf5c9be5fb.png",
       "justification": "Bandit pricing"
     },
     {
