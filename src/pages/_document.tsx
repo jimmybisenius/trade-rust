@@ -24,6 +24,8 @@ export default function Document() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
         <meta property="twitter:image" content={ogImageUrl} />
+        <link rel="preconnect" href="https://rsms.me/"/>
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
         </Head>
       <body>
         <Main />

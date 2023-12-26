@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background: #2A261E;
+}
+
+* {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -3%;
+    line-height: 145%;
+    color: #FFF;
+}
