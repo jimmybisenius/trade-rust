@@ -3549,7 +3549,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 0.25,
-      
+      "imageUrl": "https://rustlabs.com/img/items180/potato.png",
       "justification": "PD's pricing"
     },
     {
