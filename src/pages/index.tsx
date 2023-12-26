@@ -1,7 +1,7 @@
 import { TradeHeader, TradeItem, values } from "@/components"
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
-import { Item, ItemCategory, ItemName, ItemOffering } from "@/types"
+import { Item, ItemName, ItemOffering } from "@/types"
 
 const { version } = require('../../package.json')
 
@@ -142,7 +142,6 @@ export default function Home() {
   
       // TODO: Add research trades. If quantity == 1 and the item has research value, use that if greater than base value
       // Apply depreciation
-      // TODO: Allow custom wipe dates/days since last wipe
       scrapValue -= daysSinceWipe * item.depreciationPerDay
     }
   
@@ -152,35 +151,33 @@ export default function Home() {
 
   // Finds the closest value from the input string in the ItemName enum
   function searchItems(): ItemName[] {
-    if (!itemSearchQuery) {
-      console.log('No query');
-      return [];
+    let results: ItemName[] = [];
+
+    if(!itemSearchQuery) throw Error('Search query is required')
+
+    values.forEach((item: Item) => {
+        // Check for exact match in name and aliases
+        if (item.name.startsWith(itemSearchQuery) || 
+            item.aliases?.some(alias => alias.startsWith(itemSearchQuery))) {
+            results.push(item.name);
+        }
+    });
+
+    // If exact matches are found, return them
+    if (results.length > 0) {
+        return results;
     }
-  
-    const enumValues = Object.values(ItemName);
-    const lowerCaseQuery = itemSearchQuery.toLowerCase();
-  
-    // Find substring matches
-    const substringMatches = enumValues.filter(enumValue => 
-      enumValue.toLowerCase().includes(lowerCaseQuery)
-    );
-  
-    // Find closest matches using Levenshtein distance for non-substring items
-    const nonSubstringEnumValues = enumValues.filter(enumValue => 
-      !enumValue.toLowerCase().includes(lowerCaseQuery)
-    );
-    
-    const similarityScores = nonSubstringEnumValues.map(enumValue => ({
-      enumValue,
-      score: levenshtein(lowerCaseQuery, enumValue.toLowerCase())
-    }));
-  
-    similarityScores.sort((a, b) => a.score - b.score);
-    const levenshteinMatches = similarityScores.map(item => item.enumValue);
-  
-    // Combine substring matches and Levenshtein distance matches and convert Set to Array
-    return Array.from(new Set([...substringMatches, ...levenshteinMatches]));
-  }
+
+    // Find close matches using Levenshtein distance
+    values.forEach((item: Item) => {
+        if (levenshtein(itemSearchQuery, item.name) <= 2 || 
+            item.aliases?.some(alias => levenshtein(itemSearchQuery, alias) <= 2)) {
+            results.push(item.name);
+        }
+    });
+
+    return results;
+}
 
   // Runs every time the input search query is updated
   useEffect(() => {
@@ -350,7 +347,7 @@ export default function Home() {
                     setRecommendations([])
                   }}>{(itemDetails && itemDetails.imageUrl) ? <img src={itemDetails.imageUrl} className="w-10 h-auto mr-3"/> : <></>}{recommendation}</div>
                 )})}
-                {recommendations.length < 1 ? <p>No items found with that name. Check your spelling and try again?</p> : <></>} 
+                {recommendations.length < 1 ? <p className="text-center w-full mx-auto opacity-60 p-3 py-6">No items found with that name. Check your spelling and try again?</p> : <></>} 
               </div> : <></>}
             </div>
             <div onClick={() => setTargetInventory(targetInventory === 'sender' ? 'recipient' : 'sender')} className="lg:text-sm flex flex-col lg:flex-row items-center justify-start gap-2 cursor-pointer w-full mt-3">

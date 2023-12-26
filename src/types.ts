@@ -28,7 +28,7 @@
     csk: number
     category: ItemCategory
     name: ItemName
-    aliases: string[]
+    aliases?: string[]
     noQty: boolean
     depreciationPerDay: number
     scrapPer: number
