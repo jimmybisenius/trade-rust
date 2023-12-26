@@ -189,8 +189,8 @@ export default function Home() {
     let recipientOfferValue = convertOfferToScrap(recipientOffer)
 
     setTradeFairness(`
-      Sender offered ~${Number(recipientOfferValue.toFixed(0)).toLocaleString()} scrap worth of goods,
-      recipient offered ~${Number(senderOfferValue.toFixed(0)).toLocaleString()} scrap worth of goods.
+      ${senderName ?? 'Sender'} offered ~${Number(recipientOfferValue.toFixed(0)).toLocaleString()} scrap worth of goods,
+      ${recipientName ?? 'Recipient'} offered ~${Number(senderOfferValue.toFixed(0)).toLocaleString()} scrap worth of goods.
       Trade is ${areNumbersWithinMargin(recipientOfferValue, senderOfferValue, 25) === true ? 'fair' : 'unfair'}.
     `)
 
