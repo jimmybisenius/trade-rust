@@ -46,7 +46,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 1.45553333333333,
-      "imageUrl": "https://www.rust-items.com/icons/8ef4a96a346a6f0767c691bf5c9be5fb.png",
+      "imageUrl": "https://www.rust-items.com/icons/abeb97d97abeaabddb0c89238b9176d9.png",
       "justification": "Smelting cost vs yield, 3 crude + 6.67 wood = 9 lgf"
     },
     {
@@ -1515,7 +1515,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 400,
-      
+      "imageUrl": "https://www.rust-items.com/icons/601639d00168157048c9438a8be7d7a4.png",
       "justification": "crafting"
     },
     {
@@ -1525,7 +1525,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 437.5,
-      
+      "imageUrl": "https://www.rust-items.com/icons/af5a9d4489c41aacc730749e0b357ffa.png",
       "justification": "crafting"
     },
     {
@@ -1536,7 +1536,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 10.906976744186,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/7349ae44c30d29c8a301c52144efdec8.png"
     },
     {
       "csk": 8,
@@ -1546,7 +1547,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 4.36046511627907,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/bb3cb0751522fd525090a639ff112812.png"
     },
     {
       "csk": 8,
@@ -1556,7 +1558,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 4.36046511627907,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/8570bc796b39398e49ccdec1fec30392.png"
     },
     {
       "csk": 8,
@@ -1565,7 +1568,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 5.81395348837209,
-      
+      "imageUrl": "https://www.rust-items.com/icons/ff85669ba0a0c25e0d89208eb2ef9f2a.png",
       "justification": "crafting"
     },
     {
@@ -1576,7 +1579,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 10,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/d3637c8d26f6b2f601a35e9e71aae10d.png"
     },
     {
       "csk": 8,
@@ -1586,7 +1590,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 4.36046511627907,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/c372c3657d319e8a487d3188815fb470.png"
     },
     {
       "csk": 8,
@@ -1605,7 +1610,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 117.441860465116,
-      
+      "imageUrl": "https://www.rust-items.com/icons/447037bd5f2f841323ec4d1d38d3b44f.png",
       "justification": "crafting"
     },
     {
@@ -1615,7 +1620,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 400,
-      
+      "imageUrl": "https://www.rust-items.com/icons/447037bd5f2f841323ec4d1d38d3b44f.png",
       "justification": "crafting"
     },
     {
@@ -1626,7 +1631,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 75,
       "quantityToResearch": 333.333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/d9d3297544717189bf98fd493d023eb4.png"
     },
     {
       "csk": 8,
@@ -1635,7 +1641,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 160,
-      
+      "imageUrl": "https://www.rust-items.com/icons/a6b1767a37c63a85a7b7978abda90a61.png",
       "justification": "crafting"
     },
     {
@@ -1646,7 +1652,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 30,
       "quantityToResearch": 83.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/cc979d44fdfa3bf831e29336a67e3e00.png"
     },
     {
       "csk": 8,
@@ -1655,7 +1662,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 1.5,
-      
+      "imageUrl": "https://www.rust-items.com/icons/9643bc9b6efff7105959452330efedf0.png",
       "justification": "crafting"
     },
     {
@@ -1665,7 +1672,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 179.441860465116,
-      
+      "imageUrl": "https://www.rust-items.com/icons/38c662838b37d38713ac327e6a36c5e1.png",
       "justification": "crafting"
     },
     {
@@ -1675,7 +1682,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 52.9915433403805,
-      
+      "imageUrl": "https://www.rust-items.com/icons/0104ea3e2148d3b3038b9752cf4b99ba.png",
       "justification": "crafting"
     },
     {
@@ -1686,7 +1693,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 21.6279069767442,
       "quantityToResearch": 83.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/34f6d1003ffe3dd2ff26342b0e30b991.png"
     },
     {
       "csk": 8,
@@ -1696,7 +1704,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 5.81395348837209,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/89444757a5ce3193a55dd81968282049.png"
     },
     {
       "csk": 8,
@@ -1705,7 +1714,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 14.5348837209302,
-      
+      "imageUrl": "https://www.rust-items.com/icons/e48ab698c58ca7980258775481e033f8.png",
       "justification": "crafting"
     },
     {
@@ -1716,7 +1725,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 5.81395348837209,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/d89d8ba3eb0bd3bc2b6ea6ea7e27c542.png"
     },
     {
       "csk": 8,
@@ -1726,7 +1736,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 1.45348837209302,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/5055ebc442aad0d25596e85a5aeeff8f.png"
     },
     {
       "csk": 8,
@@ -1735,7 +1746,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 2,
-      
+      "imageUrl": "https://www.rust-items.com/icons/b4aea4c3a5f7c541a0df24f916fcdfc4.png",
       "justification": "crafting"
     },
     {
@@ -1746,7 +1757,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 8.72093023255814,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/a9152b13a857700e5570146fb22da6aa.png"
     },
     {
       "csk": 8,
@@ -1756,7 +1768,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 8.72093023255814,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/e30cb825f3ecabfc708329b78ecaca16.png"
     },
     {
       "csk": 8,
@@ -1766,7 +1779,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 30,
       "quantityToResearch": 83.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/bf54accc0a92efdee9ed0a4066eb3667.png"
     },
     {
       "csk": 8,
@@ -1776,7 +1790,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 6.25,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/ec0ec62e4dd8a62fd64ebc323d3b2cd7.png"
     },
     {
       "csk": 8,
@@ -1785,7 +1800,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 8.72093023255814,
-      
+      "imageUrl": "https://www.rust-items.com/icons/9090da7779994be2336410b50e9f4acd.png",
       "justification": "crafting"
     },
     {
@@ -1795,7 +1810,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 11.6279069767442,
-      
+      "imageUrl": "https://www.rust-items.com/icons/f7e6d21b2ac18220810494fa1a00824f.png",
       "justification": "crafting"
     },
     {
@@ -1806,7 +1821,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 3,
       "quantityToResearch": 83.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/f71bc42c00baf7dda1dbd13de9a7e577.png"
     },
     {
       "csk": 8,
@@ -1815,7 +1831,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 20.5887949260042,
-      
+      "imageUrl": "https://www.rust-items.com/icons/016ee5c1be710d5bcee819390cb190b4.png",
       "justification": "crafting"
     },
     {
@@ -1826,7 +1842,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 5,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/b0199e7b2ec797a0bedaaf73e674bc0a.png"
     },
     {
       "csk": 8,
@@ -1836,7 +1853,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 2.90697674418605,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/bf54accc0a92efdee9ed0a4066eb3667.png"
     },
     {
       "csk": 8,
@@ -1845,7 +1863,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 20,
-      
+      "imageUrl": "https://www.rust-items.com/icons/e435882e3e51685e893e73408efb9c61.png",
       "justification": "crafting"
     },
     {
@@ -1866,7 +1884,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 5,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/0a314e0effdb7da8886bab8a43e7fae7.png"
     },
     {
       "csk": 8,
@@ -1875,7 +1894,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 7,
-      
+      "imageUrl": "https://www.rust-items.com/icons/0d9d10826c1216ace3d608b85a61bdbc.png",
       "justification": "crafting"
     },
     {
@@ -1886,7 +1905,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 4,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/477ed3e068285a267172341cf3aac36b.png"
     },
     {
       "csk": 8,
@@ -1896,7 +1916,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 8,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/995bcaa118d8c79c9684877cd4f914ae.png"
     },
     {
       "csk": 8,
@@ -1915,7 +1936,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 6,
-      
+      "imageUrl": "https://www.rust-items.com/icons/68bdaf364f8f26ec17e191b53cfdab17.png",
       "justification": "crafting"
     },
     {
@@ -1926,7 +1947,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 12,
       "quantityToResearch": 83.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/83d2a97e9065d6d573f8984ad67aefa0.png"
     },
     {
       "csk": 8,
@@ -1935,7 +1957,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 1,
-      
+      "imageUrl": "https://www.rust-items.com/icons/29fc6353511d0dcbb2c1c1810fbcc7ae.png",
       "justification": "crafting"
     },
     {
@@ -1945,7 +1967,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 4.32558139534884,
-      
+      "imageUrl": "https://www.rust-items.com/icons/316f29ad952f7c8e29536bd2b243c34c.png",
       "justification": "crafting"
     },
     {
@@ -1956,7 +1978,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 23.3139534883721,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/f61d6cf824eda520ef981326111f9a72.png"
     },
     {
       "csk": 9,
@@ -1966,7 +1989,8 @@
       "depreciationPerDay": 0,
       "scrapPer": 5.36046511627907,
       "quantityToResearch": 13.3333333333333,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://www.rust-items.com/icons/0ebd443d1582f2d34aaf250acebce206.png"
     },
     {
       "csk": 9,
@@ -1985,7 +2009,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 2.5,
-      
+      "imageUrl": "https://www.rust-items.com/icons/0cd515e578bfe4c35df36394b12e2b16.png",
       "justification": "crafting"
     },
     {
@@ -1995,7 +2019,7 @@
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 11.453488372093,
-      
+      "imageUrl": "https://www.rust-items.com/icons/c5e9fb03fb5ae6caa5ef43820c4a6359.png",
       "justification": "crafting"
     },
     {
