@@ -378,7 +378,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='flex flex-1 flex-col gap-4'>
+        <div className='flex flex-1 flex-col gap-4 w-full'>
           <h2 className="text-xl font-medium">Trade details</h2>
           <div className="flex flex-col items-center justify-center w-full gap-2">
             <TradeHeader editable onClick={() => {
