@@ -301,8 +301,13 @@ export default function Home() {
               </svg>
               {/* Droppdown of recommendations */}
               {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9}} className="bg-glass absolute w-full flex flex-col p-2 gap-1">
-                {recommendations.map((recommendation, i) => (
-                  <div className="bg-glass-brighter p-2 capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => {
+                {recommendations.map((recommendation, i) => {
+                  const itemDetails = values.find((item: Item) => {
+                    return item.name === recommendation
+                  })
+                  
+                  return (
+                  <div className="bg-glass-brighter p-3 flex justify-start items-center capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => {
                     // If item already exists in recipient offering, throw error and clear recommendations + search string
                     const existingItemOffering = recipientOffer.find((item) => {
                       return item.name ===recommendation
@@ -329,8 +334,8 @@ export default function Home() {
                     // Clear recommendations and item search query to reset input state
                     setItemSearchQuery('')
                     setRecommendations([])
-                  }}>{recommendation}</div>
-                ))}
+                  }}>{itemDetails.imageUrl ? <img src={itemDetails.imageUrl} className="w-10 h-auto mr-3"/> : <></>}{recommendation}</div>
+                )})}
                 {recommendations.length < 1 ? <p>No items found with that name. Check your spelling and try again?</p> : <></>} 
               </div> : <></>}
             </div>
