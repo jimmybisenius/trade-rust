@@ -84,6 +84,85 @@ export default function Home() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemSearchQuery])
 
+  function editOffering(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
+    // Find the correct offerings to edit
+    let targetOfferings = originatingParty === 'sender' ? [...senderOffer] : [...recipientOffer]
+    // Prompt user for new quantity
+    let newQuantity: number | undefined = Number(prompt('Enter updated item quantity:')) ?? undefined
+    // If new quantity is zero or undefined, delete offering from list and exit
+    if(!newQuantity) {
+      deleteOffering(itemName, originatingParty)
+      return
+    }
+    console.log(`New quantity: ${newQuantity}`)
+    // Replace the target element with the updated quantity 
+    let target = targetOfferings.find((item,i) => {
+      if(item.name === itemName) {
+        targetOfferings[i].quantity = newQuantity as number
+        return true
+      }
+    })
+
+    // If target can't be found, throw error and exit
+    if(!target) throw Error('Failed to find target')
+
+    console.log(targetOfferings)
+
+    // Update the state
+    if(originatingParty === 'sender') {
+      setSenderOffer(targetOfferings)
+    } else {
+      setRecipientOffer(targetOfferings)
+    }
+  }
+
+  function deleteOffering(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
+    // Find the correct offerings to edit
+    let targetOfferings = originatingParty === 'sender' ? [...senderOffer] : [...recipientOffer]
+    // Find the target
+    const target = targetOfferings.find((item,i) => {
+      return item.name === itemName
+    })
+    // If target can't be found, throw error and exit
+    if(!target) throw Error('Failed to find target')
+    // Find index of target
+    const targetIndex = targetOfferings.indexOf(target)
+    // Remove target from offerings
+    targetOfferings.splice(targetIndex, 1)
+    // Update the state
+    if(originatingParty === 'sender') {
+      setSenderOffer(targetOfferings)
+    } else {
+      setRecipientOffer(targetOfferings)
+    }
+  }
+
+  function switchOfferingParties(itemName: ItemName, originatingParty: 'sender' | 'recipient') {
+     // Find the correct offerings to edit
+     let targetOfferings = originatingParty === 'sender' ? [...senderOffer] : [...recipientOffer]
+     let otherPartyOfferings = originatingParty === 'sender' ? [...recipientOffer] : [...senderOffer]
+     // Find the target
+     const target: ItemOffering | undefined = targetOfferings.find((item,i) => {
+       return item.name === itemName
+     })
+     // If target can't be found, throw error and exit
+     if(!target) throw Error('Failed to find target')
+     // Find index of target
+     const targetIndex = targetOfferings.indexOf(target)
+     // Remove target from offerings
+     targetOfferings.splice(targetIndex, 1)
+     // Add target to other party
+     otherPartyOfferings = [target, ...otherPartyOfferings]
+     // Update the state
+     if(originatingParty === 'sender') {
+       setSenderOffer(targetOfferings)
+       setRecipientOffer(otherPartyOfferings)
+     } else {
+       setRecipientOffer(targetOfferings)
+       setSenderOffer(otherPartyOfferings)
+     }
+  }
+
   return (
     <div className='flex flex-row items-center justify-center min-h-screen h-auto w-screen'>
       <div className='flex flex-col lg:flex-row items-center justify-between w-full max-w-6xl gap-16'>
@@ -107,9 +186,9 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
               {/* Droppdown of recommendations */}
-              {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 999}} className="bg-glass absolute w-full flex flex-col p-2 gap-1">
+              {itemSearchQuery ? <div style={{top: '100%', marginTop: 12, left: 0, zIndex: 9}} className="bg-glass absolute w-full flex flex-col p-2 gap-1">
                 {recommendations.map((recommendation, i) => (
-                  <div className="bg-glass-brighter p-2 capitalize cursor-pointer" key={i} onClick={() => {
+                  <div className="bg-glass-brighter p-2 capitalize cursor-pointer" style={{zIndex:10}} key={i} onClick={() => {
                     // Prompt for quantity
                     let quantity: number = Number(prompt('How much?')) ?? 1
                     // Add item to recipient side
@@ -140,7 +219,14 @@ export default function Home() {
                 setRecipientName(pendingName ?? undefined)
             }}>{recipientName ?? 'Recipient'}</TradeHeader>
             <div className="grid grid-cols-6 gap-2 w-full px-2">
-              {recipientOffer.map((item, i) => <TradeItem item={item.name} quantity={item.quantity} key={i}/>)}
+              {recipientOffer.map((item, i) => <TradeItem
+                item={item.name}
+                quantity={item.quantity}
+                key={i}
+                onSwitchParties={() => switchOfferingParties(item.name, 'recipient')}
+                onDelete={() => deleteOffering(item.name, 'recipient')}
+                onEdit={() => editOffering(item.name, 'recipient')}
+              />)}
               {[...Array(12-recipientOffer.length)].map((e, i) => <TradeItem key={i + recipientOffer.length}/>)}
             </div>
             <TradeHeader marginTop editable onClick={() => {
@@ -150,7 +236,13 @@ export default function Home() {
                 setSenderName(pendingName ?? undefined)
             }}>{senderName ?? 'Yourself'}</TradeHeader>
             <div className="grid grid-cols-6 gap-2 w-full mt-2 px-2">
-              {senderOffer.map((item, i) => <TradeItem item={item.name} quantity={item.quantity} key={i}/>)}
+              {senderOffer.map((item, i) => <TradeItem
+                item={item.name}
+                onSwitchParties={() => switchOfferingParties(item.name, 'sender')}
+                onDelete={() => deleteOffering(item.name, 'sender')}
+                onEdit={() => editOffering(item.name, 'sender')}
+                quantity={item.quantity}
+                key={i}/>)}
               {[...Array(12-senderOffer.length)].map((e, i) => <TradeItem key={i + senderOffer.length}/>)}
             </div>
             <div className="w-full bg-glass mt-2 p-3 flex flex-row items-center justify-start font-medium text-lg">

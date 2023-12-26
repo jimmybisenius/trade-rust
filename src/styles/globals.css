@@ -12,3 +12,11 @@ body {
     line-height: 145%;
     color: #FFF;
 }
+
+.item-controls {
+    display: none;
+}
+
+.item:hover .item-controls {
+    display: flex;
+}
