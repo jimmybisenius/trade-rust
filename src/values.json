@@ -871,7 +871,7 @@
       "csk": 4,
       "category": "AmmoExplo",
       "name": "incendiary 5.56 rifle ammo",
-      "aliases": ["incendiary 556 rifle ammo"],
+      "aliases": ["incendiary 556 rifle ammo", "556 incendiary rifle ammo", "5.56 incendiary rifle ammo"],
       "noQty": false,
       "depreciationPerDay": 0.0142857142857143,
       "scrapPer": 4.40083979328165,
