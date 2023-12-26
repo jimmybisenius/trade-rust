@@ -354,7 +354,7 @@ export default function Home() {
               </div> : <></>}
             </div>
             <div onClick={() => setTargetInventory(targetInventory === 'sender' ? 'recipient' : 'sender')} className="flex flex-col lg:flex-row items-center justify-start gap-2 cursor-pointer w-full mt-4">
-              <span className='opacity-60 italic'>Adding items to {targetInventory === 'sender' ? `${senderName ? `${senderName}'s` : 'Your'}` : `${recipientName ? `${recipientName}'s` : 'Recipient'}`} offer.</span>
+              <span className='opacity-60 italic'>Adding items to {targetInventory === 'sender' ? `${senderName ? `${senderName}'s` : 'Your'}` : `${recipientName ? `${recipientName}'s` : `the Recipient's`}`} offer.</span>
               <span className="underline font-medium opacity-60 hover:opacity-100">Click here to update your offer instead.</span>
             </div>
             <div onClick={() => {
