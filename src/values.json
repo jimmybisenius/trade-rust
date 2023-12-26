@@ -247,6 +247,7 @@
       "csk": 1,
       "category": "Components",
       "name": "cctv camera",
+      "aliases": ["security camera"],
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 140,
@@ -257,6 +258,7 @@
       "csk": 1,
       "category": "Components",
       "name": "electric fuse",
+      "aliases": ["fuse"],
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 20,
@@ -277,6 +279,7 @@
       "csk": 1,
       "category": "Components",
       "name": "laptop",
+      "aliases": ["targeting computer"],
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 125,
@@ -287,6 +290,7 @@
       "csk": 1,
       "category": "Components",
       "name": "pipes",
+      "aliases": ["metal pipe"],
       "noQty": false,
       "depreciationPerDay": 0,
       "scrapPer": 20,
@@ -675,7 +679,8 @@
       "depreciationPerDay": 0.0142857142857143,
       "scrapPer": 26.25,
       "quantityToResearch": 50,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://rustlabs.com/img/items180/grenade.molotov.png"
     },
     {
       "csk": 3,
