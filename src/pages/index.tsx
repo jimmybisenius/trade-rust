@@ -197,8 +197,7 @@ export default function Home() {
                       quantity
                     },...recipientOffer])
                     // Clear recommendations and item search query to reset input state
-                    // TODO: first line below not working
-                    setItemSearchQuery(undefined)
+                    setItemSearchQuery('')
                     setRecommendations([])
                   }}>{recommendation}</div>
                 ))}
