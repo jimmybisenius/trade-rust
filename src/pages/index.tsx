@@ -500,7 +500,7 @@ export default function Home() {
                   `Trade is ${areNumbersWithinMargin(convertOfferToScrap(recipientOffer), convertOfferToScrap(senderOffer), 25) === true
                     ? 'fair.'
                     : `unfair. ${convertOfferToScrap(senderOffer) > convertOfferToScrap(recipientOffer) ? `${recipientName ?? 'The Recipient'} should offer more.` : `${senderName ?? 'You'} should offer more.`}`}`
-                  : 'Add an item to begin evaluating.'}
+                  : (senderOffer.length < 1 && recipientOffer.length < 1) ? 'Add an item to begin evaluating.' : ''}
               </p>
               {senderOffer.length > 0 || recipientOffer.length > 0
                 ? <p className="max-w-sm opacity-40 text-sm">{senderOffer.length > 0
