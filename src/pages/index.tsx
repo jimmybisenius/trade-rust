@@ -370,7 +370,7 @@ export default function Home() {
                 window.localStorage.setItem('recipientName', pendingName ?? '')
                 setRecipientName(pendingName ?? undefined)
             }}>{recipientName ?? 'Recipient'}</TradeHeader>
-            <div className="grid grid-cols-6 gap-2 w-full px-2">
+            <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 w-full px-2">
               {recipientOffer.map((item, i) => <TradeItem
                 item={item.name}
                 quantity={item.quantity}
