@@ -220,7 +220,7 @@
       "quantityIrrelevant": false,
       "depreciationPerDay": 0,
       "scrapPer": 0.571428571428571,
-      "imageUrl": "https://www.rust-items.com/icons/0df3cc16ba52b1b83159f69d383df5b7.png",
+      "imageUrl": "https://rustlabs.com/img/items180/skull.wolf.png",
       "justification": "20 bone fragments"
     },
     {
@@ -4394,7 +4394,8 @@
       "quantityIrrelevant": false,
       "depreciationPerDay": 0,
       "scrapPer": 260,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://images.squarespace-cdn.com/content/v1/5420d068e4b09194f76b2af6/1589576424564-40NLYHJ0RDZZGD3JQJX1/image-asset.png?format=1000w"
     },
     {
       "csk": 16,
@@ -4404,7 +4405,8 @@
       "quantityIrrelevant": false,
       "depreciationPerDay": 0,
       "scrapPer": 752,
-      "justification": "crafting"
+      "justification": "crafting",
+      "imageUrl": "https://images.squarespace-cdn.com/content/v1/5420d068e4b09194f76b2af6/1589576430873-ZGBNJ958I2UCUF2QQTBP/image-asset.png?format=1000w"
     },
     {
       "csk": 16,
@@ -4413,6 +4415,7 @@
       "aliases": ["car (4-mod)", "2-module vehicle", "four module chassis (car)"],
       "quantityIrrelevant": false,
       "depreciationPerDay": 0,
+      "imageUrl": "https://images.squarespace-cdn.com/content/v1/5420d068e4b09194f76b2af6/1589576436659-ZXNKJM8Z6VZ6V29QEZKL/image-asset.png?format=1000w",
       "scrapPer": 990,
       "justification": "crafting"
     },
