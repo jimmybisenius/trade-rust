@@ -401,7 +401,15 @@ export default function Home() {
           </div>
           <p className='text-center lg:text-left text-2xl opacity-80 leading-10'>An unofficial trade evaluator for Rust players. Enter your items to see how fair a trade is.</p>
           <div className='flex flex-col gap-4 items-center text-center lg:items-start lg:text-left'>
-            <label className='font-medium text-xl'>What are you trading?</label>
+            <label className='font-medium text-xl'>What {targetInventory==='sender' ? (
+              senderName ? 
+                `is ${senderName}`
+                : `are you`
+            ) : (
+              recipientName ?
+                `is ${recipientName}`
+                : `are they`
+            )} trading?</label>
             <div className="flex flex-row w-full relative items-start justify-start">
               <input onKeyDown={(e) => {if(e.key === 'Enter' && recommendations.length > 0) addItem(recommendations[0])}}  value={itemSearchQuery} onChange={(e) => {
                 setItemSearchQuery(e.target.value)
