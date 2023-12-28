@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { Html, Head, Main, NextScript } from 'next/document'
 
 const title = 'Rust Trade Evaluator - Prevent teaming, trade fairly'
@@ -27,6 +28,7 @@ export default function Document() {
         <link rel="preconnect" href="https://rsms.me/"/>
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
         </Head>
+        <Analytics />
       <body>
         <Main />
         <NextScript />
