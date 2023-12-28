@@ -29,7 +29,7 @@
     category: ItemCategory
     name: ItemName
     aliases?: string[]
-    noQty: boolean
+    quantityIrrelevant: boolean
     depreciationPerDay: number
     scrapPer: number
     quantityToResearch?: number
