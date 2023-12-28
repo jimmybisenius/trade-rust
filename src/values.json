@@ -4394,7 +4394,7 @@
       "quantityIrrelevant": false,
       "depreciationPerDay": 0,
       "scrapPer": 260,
-      "justification": "crafting",
+      "justification": "suggested by LW car merchant",
       "imageUrl": "https://images.squarespace-cdn.com/content/v1/5420d068e4b09194f76b2af6/1589576424564-40NLYHJ0RDZZGD3JQJX1/image-asset.png?format=1000w"
     },
     {
@@ -4405,7 +4405,7 @@
       "quantityIrrelevant": false,
       "depreciationPerDay": 0,
       "scrapPer": 752,
-      "justification": "crafting",
+      "justification": "suggested by LW car merchant",
       "imageUrl": "https://images.squarespace-cdn.com/content/v1/5420d068e4b09194f76b2af6/1589576430873-ZGBNJ958I2UCUF2QQTBP/image-asset.png?format=1000w"
     },
     {
@@ -4417,7 +4417,7 @@
       "depreciationPerDay": 0,
       "imageUrl": "https://images.squarespace-cdn.com/content/v1/5420d068e4b09194f76b2af6/1589576436659-ZXNKJM8Z6VZ6V29QEZKL/image-asset.png?format=1000w",
       "scrapPer": 990,
-      "justification": "crafting"
+      "justification": "suggested by LW car merchant"
     },
     {
       "csk": 17,
