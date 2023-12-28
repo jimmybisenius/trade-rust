@@ -188,9 +188,9 @@ export default function Home() {
     for(let i=0;i<offer.length;i++) {
       const item = findItem(offer[i].name)
   
+      // Multiply scrap value by quantity, unless quantity is irrelevant (clones)
       scrapValue += item.scrapPer * (!item.quantityIrrelevant ? offer[i].quantity : 1)
   
-      // TODO: Add research trades. If quantity == 1 and the item has research value, use that if greater than base value
       // Apply depreciation
       scrapValue -= daysSinceWipe * item.depreciationPerDay
     }
