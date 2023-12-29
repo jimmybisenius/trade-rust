@@ -28,8 +28,8 @@ export default function Document() {
         <link rel="preconnect" href="https://rsms.me/"/>
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
         </Head>
-        <Analytics />
       <body>
+        <Analytics />
         <Main />
         <NextScript />
       </body>
